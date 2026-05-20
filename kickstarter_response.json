@@ -1,0 +1,1839 @@
+{
+  "projects": [
+    {
+      "id": 1690621204,
+      "photo": {
+        "key": "assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg",
+        "full": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1778786877&width=560&sig=WM0C5divAzFdNDio7JRtV794ZJnDhYh%2Bl0TlB20QJi4%3D",
+        "ed": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1778786877&width=352&sig=dJZ7Cf%2B3YpAx7KLeK8xlEjfMj1G0xRpaZk2Tufx4K7c%3D",
+        "med": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1778786877&width=272&sig=Oqe6aOaYA71u55yj2TvSWfSK3yrxluMG%2BgI7WHZrFM0%3D",
+        "little": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1778786877&width=208&sig=CAlvIRUkPs0fWwt92mubUbi9DsPcfOcouzO661wuXl4%3D",
+        "small": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1778786877&width=160&sig=%2B2isi2dpxQm%2F7uO%2FyaiSJN2TEMls0jJWEmmYrdBF3V4%3D",
+        "thumb": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1778786877&width=48&sig=5veIXsE4sKdxcdBvE%2BEfTCzYPzBIaA3EcSTf%2FDnB%2FeY%3D",
+        "1024x576": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1778786877&width=1024&sig=koEdWS1snHDOvASQe%2FoJ4T9fEjn5U1zrDxuib6BwTYA%3D",
+        "1536x864": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1778786877&width=1552&sig=1pHAtI7OKlpbD1WXY8RXPSIlQvS0ilSrUkuCLfRp52A%3D"
+      },
+      "name": "Grand Travel 2.0 - Limitless All Day & Travel Carry",
+      "blurb": "A refined modular bag designed to move seamlessly from work to travel to everyday life. One bag. Every day. Every journey.",
+      "goal": 100000.0,
+      "pledged": 370540.0,
+      "state": "live",
+      "slug": "grand-travel-20-limitless-all-day-and-travel-carry",
+      "country": "HK",
+      "country_displayable_name": "Hong Kong",
+      "currency": "HKD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1781803511,
+      "state_changed_at": 1779125115,
+      "created_at": 1772606737,
+      "launched_at": 1779125111,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": true,
+      "disable_communication": false,
+      "backers_count": 148,
+      "static_usd_rate": 0.12765849,
+      "usd_pledged": "47302.5768846",
+      "converted_pledged_amount": 47307,
+      "fx_rate": 0.12767162,
+      "usd_exchange_rate": 0.12767162,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 147168829,
+        "name": "La Mansio",
+        "slug": "lamansio",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/045/512/570/0d0d15963e064dd9c76d810659645d23_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1719319450&width=40&sig=uQlobOtofrqWMu4qwPrt0LqFdT7xdt4i0aMx%2F3ladOo%3D",
+          "small": "https://i.kickstarter.com/assets/045/512/570/0d0d15963e064dd9c76d810659645d23_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1719319450&width=80&sig=gsLzJj9UwLdt%2FOIY%2Bj8FxL3YRJIXxybw7uvO2VW7XW4%3D",
+          "medium": "https://i.kickstarter.com/assets/045/512/570/0d0d15963e064dd9c76d810659645d23_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1719319450&width=160&sig=7%2BKS7Z8ZZ8I2NC%2FSuSE0E7ZctNN3X07Xmm8Y4Bsp6%2BY%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/lamansio"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/147168829?signature=1779393280.8ad0820e185409d6b362855de04b4b72902863ec"
+          }
+        }
+      },
+      "location": {
+        "id": 2165352,
+        "name": "Hong Kong",
+        "slug": "hong-kong-hk",
+        "short_name": "Hong Kong, Hong Kong",
+        "displayable_name": "Hong Kong, Hong Kong",
+        "localized_name": "Hong Kong",
+        "country": "HK",
+        "state": "Hong Kong Island",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "Hong Kong",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/hong-kong-hk",
+            "location": "https://www.kickstarter.com/locations/hong-kong-hk"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355279.014e55978ecea3b8c4d085988870ed72e101c774&woe_id=2165352"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1432439,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779285298-3oTrk%2BxpvSWuCmk9cVx7Oqo1dHXRkw%2B3uSyJz%2FO43VQ%3D/projects/5298403/video-1432439-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779285298-3oTrk%2BxpvSWuCmk9cVx7Oqo1dHXRkw%2B3uSyJz%2FO43VQ%3D/projects/5298403/video-1432439-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779285298-3oTrk%2BxpvSWuCmk9cVx7Oqo1dHXRkw%2B3uSyJz%2FO43VQ%3D/projects/5298403/video-1432439-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5298403/video-1432439-h264_720.jpg?2026"
+      },
+      "profile": {
+        "id": 5337879,
+        "project_id": 5337879,
+        "state": "inactive",
+        "state_changed_at": 1772606737,
+        "name": "Grand Travel 2.0 - Limitless All Day & Travel Carry",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1778786877&width=1552&sig=1pHAtI7OKlpbD1WXY8RXPSIlQvS0ilSrUkuCLfRp52A%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/053/733/327/5c8c98b039dda25ed8ec559f8c0c4dfc_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1778786877&width=560&sig=WM0C5divAzFdNDio7JRtV794ZJnDhYh%2Bl0TlB20QJi4%3D"
+          }
+        }
+      },
+      "spotlight": false,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/lamansio/grand-travel-20-limitless-all-day-and-travel-carry",
+          "rewards": "https://www.kickstarter.com/projects/lamansio/grand-travel-20-limitless-all-day-and-travel-carry/rewards"
+        }
+      },
+      "percent_funded": 370.54,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 1401398359,
+      "photo": {
+        "key": "assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png",
+        "full": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1768237864&width=560&sig=b2ApVb1nQIairzQrS0BORlFgSP6kzUIJRWsfuJw8g5M%3D",
+        "ed": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1768237864&width=352&sig=82%2BfwKYS3XyLP9pJpra6nneMm5eyeS4VJcLNM41qvfM%3D",
+        "med": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1768237864&width=272&sig=yMoI6T3GPSN3hdBcwD91Y7ZICAW5OoHwpX8oK6Uejtg%3D",
+        "little": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1768237864&width=208&sig=F0V2WLxAJnRVc%2BrNMJxFI1paHxMH1oaTvnF88ZYFDok%3D",
+        "small": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1768237864&width=160&sig=SqhzEZ2iYcnVlqHCYbhesjYus22nqgSvSMJyO4NmN4g%3D",
+        "thumb": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1768237864&width=48&sig=U%2BD2t7RwqYgB6kweyrMfwrUA0Fw1yQWzKjkO3EhIRr4%3D",
+        "1024x576": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1768237864&width=1024&sig=Wh9R1K7Z2L1R9Gl98BRQDMd2jy3FCx7yxJE6pc1AN5I%3D",
+        "1536x864": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1768237864&width=1552&sig=ArI0%2FUc5JPNK6eYfbzPYBILdsS8rsWH3yAqK1cs0X5c%3D"
+      },
+      "name": "4D Silver Pack: 5 in 1 modular toiletry bag for travel",
+      "blurb": "The ideal size for every trip. Every time. The sectional system keeps your essentials perfectly organized & accessable. Odor-supressing",
+      "goal": 3000.0,
+      "pledged": 119919.0,
+      "state": "successful",
+      "slug": "4d-silver-pack-antiseptic-toiletry-bag-for-suitcase-and-travel",
+      "country": "US",
+      "country_displayable_name": "the United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1772729700,
+      "state_changed_at": 1772729706,
+      "created_at": 1755183300,
+      "launched_at": 1769611889,
+      "is_in_post_campaign_pledging_phase": true,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 1728,
+      "static_usd_rate": 1.0,
+      "usd_pledged": "119919.0",
+      "converted_pledged_amount": 119919,
+      "fx_rate": 1.0,
+      "usd_exchange_rate": 1.0,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 689973563,
+        "name": "GearLand",
+        "slug": "backpack-suitcase",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/043/383/153/05a9d356002febf58ca0280bbfb8d998_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1702589405&width=40&sig=xZ3Tde2HwJAzmkwtgkYjZoufSNg9cEhUgngLXQ7fTs0%3D",
+          "small": "https://i.kickstarter.com/assets/043/383/153/05a9d356002febf58ca0280bbfb8d998_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1702589405&width=80&sig=5M2RNoonJV%2F3wgyeurWSUaaT%2BU3KBUxyU8NzFgwyG6M%3D",
+          "medium": "https://i.kickstarter.com/assets/043/383/153/05a9d356002febf58ca0280bbfb8d998_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1702589405&width=160&sig=xt9WTf34Bz8YIZJsg0dUDGs5AVssuG8LqhxSVQN8H8k%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/backpack-suitcase"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/689973563?signature=1779393280.f812ee2ffa50cc8c969312af5b013222f75b71e4"
+          }
+        }
+      },
+      "location": {
+        "id": 2358820,
+        "name": "Baltimore",
+        "slug": "baltimore-md",
+        "short_name": "Baltimore, MD",
+        "displayable_name": "Baltimore, MD",
+        "localized_name": "Baltimore",
+        "country": "US",
+        "state": "MD",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United States",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/baltimore-md",
+            "location": "https://www.kickstarter.com/locations/baltimore-md"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355892.5939a6f5dc81c01fe146763d914de042deff8e2b&woe_id=2358820"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1394648,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779293450-XWOFZMBSehaw16N2oNIMGcqufxu3S%2FEF95RnfZaM%2FN4%3D/projects/5198811/video-1394648-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779293450-XWOFZMBSehaw16N2oNIMGcqufxu3S%2FEF95RnfZaM%2FN4%3D/projects/5198811/video-1394648-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779293450-XWOFZMBSehaw16N2oNIMGcqufxu3S%2FEF95RnfZaM%2FN4%3D/projects/5198811/video-1394648-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5198811/video-1394648-h264_720.jpg?2025"
+      },
+      "profile": {
+        "id": 5238287,
+        "project_id": 5238287,
+        "state": "inactive",
+        "state_changed_at": 1755183300,
+        "name": "4D Silver Pack: 5 in 1 modular toiletry bag for travel",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1768237864&width=1552&sig=ArI0%2FUc5JPNK6eYfbzPYBILdsS8rsWH3yAqK1cs0X5c%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/052/193/560/c4ecefce994308e1978f32eee4adbe6b_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1768237864&width=560&sig=b2ApVb1nQIairzQrS0BORlFgSP6kzUIJRWsfuJw8g5M%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/backpack-suitcase/4d-silver-pack-antiseptic-toiletry-bag-for-suitcase-and-travel",
+          "rewards": "https://www.kickstarter.com/projects/backpack-suitcase/4d-silver-pack-antiseptic-toiletry-bag-for-suitcase-and-travel/rewards"
+        }
+      },
+      "percent_funded": 3997.2999999999997,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 1575871916,
+      "photo": {
+        "key": "assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg",
+        "full": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1775170914&width=560&sig=u57ffsv%2FDVt%2FnB5wabhtMI9vwvCoKQAEAXztfBOmNzg%3D",
+        "ed": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1775170914&width=352&sig=bO01DoLk1%2BPJ7R8P5dMZCquoIeRyZEMqsAgDx9LqjXA%3D",
+        "med": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1775170914&width=272&sig=3gVbmLoJjKiJn4VX7uOFCUN4ojQain2TnDaAbXiqUoA%3D",
+        "little": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1775170914&width=208&sig=ZcqxWL8zXNyIGlBEwnXkQIug6xG%2F6GgjbH%2B9ePSd398%3D",
+        "small": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1775170914&width=160&sig=AUwPRS09IQXul4%2Bipi7qghmdpM82w13v2VsPvXNBpIE%3D",
+        "thumb": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1775170914&width=48&sig=t6MZP%2FFWR8JzSfYhz9PAJIajCUtd13mB8JjIvrUXsIc%3D",
+        "1024x576": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1775170914&width=1024&sig=1VAidBdFsLhgbdv4F9jHmboCkv0B0fY3xC3k93LGoco%3D",
+        "1536x864": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1775170914&width=1552&sig=%2FEt0Q5LtG7xM9z45ABl0BGnVKRv6kh35w%2FTrRKei2a0%3D"
+      },
+      "name": "4D Maxx: triple your luggage capacity. Now semi-transparent",
+      "blurb": "Travel and home storage: maximize the capacity. Keep it organized & accessable. The best model of 4D compression bags. All-new material",
+      "goal": 0,
+      "pledged": 0.0,
+      "state": "submitted",
+      "slug": "4d-maxx-luggage-airplane-storage-suitcase-triple-capacity",
+      "country": "US",
+      "country_displayable_name": "the United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 0,
+      "state_changed_at": 1775146248,
+      "created_at": 1774641013,
+      "launched_at": 0,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": true,
+      "disable_communication": false,
+      "backers_count": 0,
+      "static_usd_rate": 0.0,
+      "usd_pledged": null,
+      "converted_pledged_amount": null,
+      "fx_rate": 1.0,
+      "usd_exchange_rate": null,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 269352375,
+        "name": "GearLand Tech",
+        "slug": "travel-gear-backpack",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/053/184/224/c859145fd7c16c69f8a5aa7ad15c9397_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1775076310&width=40&sig=N5KFcQAsjgEAo1%2BYvN%2BVYOwLbfZrvWKExUVpfXeLU2k%3D",
+          "small": "https://i.kickstarter.com/assets/053/184/224/c859145fd7c16c69f8a5aa7ad15c9397_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1775076310&width=80&sig=u%2FqD7BDyL%2BRqRu4LuPXIzj%2FKmzXUjNr8h2f89F5Fk%2Fk%3D",
+          "medium": "https://i.kickstarter.com/assets/053/184/224/c859145fd7c16c69f8a5aa7ad15c9397_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1775076310&width=160&sig=l603Z9ZIEv59nXCr0JtRjneLAeImhr8fXTGVpbGucn8%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/travel-gear-backpack"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/269352375?signature=1779393280.4d34a769aa4a475117482c9e8cd4e002f92fec3f"
+          }
+        }
+      },
+      "location": {
+        "id": 2358820,
+        "name": "Baltimore",
+        "slug": "baltimore-md",
+        "short_name": "Baltimore, MD",
+        "displayable_name": "Baltimore, MD",
+        "localized_name": "Baltimore",
+        "country": "US",
+        "state": "MD",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United States",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/baltimore-md",
+            "location": "https://www.kickstarter.com/locations/baltimore-md"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355892.5939a6f5dc81c01fe146763d914de042deff8e2b&woe_id=2358820"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": null,
+      "profile": {
+        "id": 5349243,
+        "project_id": 5349243,
+        "state": "inactive",
+        "state_changed_at": 1774641014,
+        "name": "4D Maxx: triple your luggage capacity. Now semi-transparent",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1775170914&width=1552&sig=%2FEt0Q5LtG7xM9z45ABl0BGnVKRv6kh35w%2FTrRKei2a0%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/053/198/674/7202f4c2194422bc6f84cb0b332677e0_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1775170914&width=560&sig=u57ffsv%2FDVt%2FnB5wabhtMI9vwvCoKQAEAXztfBOmNzg%3D"
+          }
+        }
+      },
+      "spotlight": false,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/travel-gear-backpack/4d-maxx-luggage-airplane-storage-suitcase-triple-capacity",
+          "rewards": "https://www.kickstarter.com/projects/travel-gear-backpack/4d-maxx-luggage-airplane-storage-suitcase-triple-capacity/rewards"
+        }
+      },
+      "percent_funded": 0.0,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": false,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 226943153,
+      "photo": {
+        "key": "assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png",
+        "full": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1772537497&width=560&sig=hgXPke0XyXuW%2BMBhgv4qJtYlj7F9%2Boklt%2BnRrc5s258%3D",
+        "ed": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1772537497&width=352&sig=3TAeEatdbacP8h9mN4Fm4HLteeYJQ2zx4iuZA7nJR%2Fg%3D",
+        "med": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1772537497&width=272&sig=ZkP3snBWdRt7xKfst%2BQkNUctAMHI9vL3upefIS%2FrQvU%3D",
+        "little": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1772537497&width=208&sig=tF9n0PttemOloLzb3iG6eauPSj2ktc32bUgpY6ydQzA%3D",
+        "small": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1772537497&width=160&sig=ApCMfA8ySqsMUQnovK3UNXqbVXn%2BeA5EOdlRJJKFg4g%3D",
+        "thumb": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1772537497&width=48&sig=Vg17pBPxDfFkUlqvE2vFN7uaaSJhol0hzMgtjKVDcHc%3D",
+        "1024x576": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1772537497&width=1024&sig=vsJnLz9GAH8jmnh4pg6vihpIoX0AOAJto%2F7kbaGzZlk%3D",
+        "1536x864": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1772537497&width=1552&sig=GhsSKbtG2IvWnBCq95xdzoIat21H5dIe5U12eTw%2B07w%3D"
+      },
+      "name": "4 New Travel Bags by Peak Design",
+      "blurb": "Bring delight and dignity back to your travel experience with 4 new bags designed to elevate your life on the road.",
+      "goal": 100000.0,
+      "pledged": 2428996.0,
+      "state": "successful",
+      "slug": "4-new-travel-bags-by-peak-design",
+      "country": "US",
+      "country_displayable_name": "the United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1775199600,
+      "state_changed_at": 1775199601,
+      "created_at": 1771013602,
+      "launched_at": 1772546374,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 7149,
+      "static_usd_rate": 1.0,
+      "usd_pledged": "2428996.0",
+      "converted_pledged_amount": 2428996,
+      "fx_rate": 1.0,
+      "usd_exchange_rate": 1.0,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 97103764,
+        "name": "Peak Design",
+        "slug": "peak-design",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/006/023/679/e2d8ec5dea004fd1f2bf17c7bb62d525_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1510175320&width=40&sig=O5%2FfiTwX7bmrij%2BaI9WWNBfTjzrE0siutK47RBhXxtU%3D",
+          "small": "https://i.kickstarter.com/assets/006/023/679/e2d8ec5dea004fd1f2bf17c7bb62d525_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1510175320&width=80&sig=jYsNp5CJX6szOBTD7lBBah9%2FMciCVJk5N%2BPTKCsiAUg%3D",
+          "medium": "https://i.kickstarter.com/assets/006/023/679/e2d8ec5dea004fd1f2bf17c7bb62d525_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1510175320&width=160&sig=z0ikCPkkb5Bt%2BfoekstpMK%2BRNZE3%2FxQ7wmFSHl6SZ6U%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/peak-design"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/97103764?signature=1779393280.ca11fc70df8258200f659d846cbf09af08511b3c"
+          }
+        }
+      },
+      "location": {
+        "id": 2487956,
+        "name": "San Francisco",
+        "slug": "san-francisco-ca",
+        "short_name": "San Francisco, CA",
+        "displayable_name": "San Francisco, CA",
+        "localized_name": "San Francisco",
+        "country": "US",
+        "state": "CA",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United States",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/san-francisco-ca",
+            "location": "https://www.kickstarter.com/locations/san-francisco-ca"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355347.33a24634781a188f8b46f854a2bae382c7ca365b&woe_id=2487956"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1417997,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779250836-g3anbh%2BPnepphdOZpMhSPQ7WMKlU%2BCjH9ix62f3SNwY%3D/projects/5290093/video-1417997-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779250836-g3anbh%2BPnepphdOZpMhSPQ7WMKlU%2BCjH9ix62f3SNwY%3D/projects/5290093/video-1417997-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779250836-g3anbh%2BPnepphdOZpMhSPQ7WMKlU%2BCjH9ix62f3SNwY%3D/projects/5290093/video-1417997-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5290093/video-1417997-h264_720.jpg?2026"
+      },
+      "profile": {
+        "id": 5329569,
+        "project_id": 5329569,
+        "state": "active",
+        "state_changed_at": 1777302368,
+        "name": "4 New Travel Bags by Peak Design",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1772537497&width=1552&sig=GhsSKbtG2IvWnBCq95xdzoIat21H5dIe5U12eTw%2B07w%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/052/808/251/c3f9abafb7a21faeb2d1b6684b2fd9e8_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1772537497&width=560&sig=hgXPke0XyXuW%2BMBhgv4qJtYlj7F9%2Boklt%2BnRrc5s258%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/peak-design/4-new-travel-bags-by-peak-design",
+          "rewards": "https://www.kickstarter.com/projects/peak-design/4-new-travel-bags-by-peak-design/rewards"
+        }
+      },
+      "percent_funded": 2428.996,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 389926419,
+      "photo": {
+        "key": "assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png",
+        "full": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1749499505&width=560&sig=D%2F5kefaegX2VQq9cIsVb3Bp1iLjXbqP12RwL03V2KD4%3D",
+        "ed": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1749499505&width=352&sig=FG%2F91eNsQ%2BgExtdgHTyTVfy%2BARglLUg6sZkVqgkuvpU%3D",
+        "med": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1749499505&width=272&sig=LeP%2FRviIqI1O0iluY%2FGL%2BdnStR7njsKtRSdJe3x0fl0%3D",
+        "little": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1749499505&width=208&sig=8RBXSQKvLbaAyMVDdraqiUDysqG6LTyGsfDVt1El1Bg%3D",
+        "small": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1749499505&width=160&sig=XEP0SEEMg6PxonIABHjvEzx6635mVM%2FlWWtB1TmmTLs%3D",
+        "thumb": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1749499505&width=48&sig=CdI6V98XT%2B5s9M0Xz5CAZQkZ0eDG37tWZlXwFVUPj4U%3D",
+        "1024x576": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1749499505&width=1024&sig=SrNH%2BSvVropl34epMbwOTFT2MK84tGCR027%2FOlZQYt0%3D",
+        "1536x864": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1749499505&width=1552&sig=Ibg9a6sEClwEQMBaTKDTEtQk8z8hkTBaMjwuHusNXNs%3D"
+      },
+      "name": "PRVKE V4 + All-New PRVKE EDC Backpacks by WANDRD",
+      "blurb": "The bag trusted by 250,000+ just got better. Travel, work, photography, EDC—this is the PRVKE V4. Because 4.9 stars wasn’t good enough.",
+      "goal": 25000.0,
+      "pledged": 701959.0,
+      "state": "successful",
+      "slug": "prvke-v4-all-new-edc",
+      "country": "US",
+      "country_displayable_name": "the United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1752206400,
+      "state_changed_at": 1752206400,
+      "created_at": 1746637557,
+      "launched_at": 1749657623,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 3016,
+      "static_usd_rate": 1.0,
+      "usd_pledged": "701959.0",
+      "converted_pledged_amount": 701959,
+      "fx_rate": 1.0,
+      "usd_exchange_rate": 1.0,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 696588136,
+        "name": "WANDRD",
+        "slug": "wandrd",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/040/886/201/8df01d06d4f27daf0082eafae8ebe373_original.jpg?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1683644112&width=40&sig=eAIzcJPI1I%2BfIo2L%2FWDr1tY9p15wteBe%2Bt5f1hK5Jeg%3D",
+          "small": "https://i.kickstarter.com/assets/040/886/201/8df01d06d4f27daf0082eafae8ebe373_original.jpg?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1683644112&width=80&sig=rtIPtDaQLFkPOp%2BU06fWaDMyWAzrlHsLENx9EleE5Xc%3D",
+          "medium": "https://i.kickstarter.com/assets/040/886/201/8df01d06d4f27daf0082eafae8ebe373_original.jpg?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1683644112&width=160&sig=tqsW8h04h7MotpAj%2BptPwNFx2VSU2vmrMu2sDyPUhCM%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/wandrd"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/696588136?signature=1779393280.eb399ad85f7694b9469356f0f2cb03d38921f4ed"
+          }
+        }
+      },
+      "location": {
+        "id": 2466151,
+        "name": "Orem",
+        "slug": "orem-ut",
+        "short_name": "Orem, UT",
+        "displayable_name": "Orem, UT",
+        "localized_name": "Orem",
+        "country": "US",
+        "state": "UT",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United States",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/orem-ut",
+            "location": "https://www.kickstarter.com/locations/orem-ut"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779359198.a9b910e83fe537d4a2bd141b99978f592b5ee87d&woe_id=2466151"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1365801,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779224614-dFigo58%2B7bUnJOJ5Y5vXMS0E2ALhWBrSPI0MssVf4l0%3D/projects/5141974/video-1365801-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779224614-dFigo58%2B7bUnJOJ5Y5vXMS0E2ALhWBrSPI0MssVf4l0%3D/projects/5141974/video-1365801-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779224614-dFigo58%2B7bUnJOJ5Y5vXMS0E2ALhWBrSPI0MssVf4l0%3D/projects/5141974/video-1365801-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5141974/video-1365801-h264_720.jpg?2025"
+      },
+      "profile": {
+        "id": 5181450,
+        "project_id": 5181450,
+        "state": "active",
+        "state_changed_at": 1752210347,
+        "name": "PRVKE V4 + All-New PRVKE EDC Backpacks by WANDRD",
+        "blurb": "The bag trusted by 250,000+ just got better. Travel, work, photography, EDC—this is the PRVKE V4. Because 4.9 stars wasn’t good enough.",
+        "background_color": "",
+        "text_color": "",
+        "link_background_color": "070707",
+        "link_text_color": "",
+        "link_text": "Available Now",
+        "link_url": "https://www.wandrd.com/products/prvke",
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1749499505&width=1552&sig=Ibg9a6sEClwEQMBaTKDTEtQk8z8hkTBaMjwuHusNXNs%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/049/610/333/42bbdd48fb4c71a77aeef2e503da8e39_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1749499505&width=560&sig=D%2F5kefaegX2VQq9cIsVb3Bp1iLjXbqP12RwL03V2KD4%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/wandrd/prvke-v4-all-new-edc",
+          "rewards": "https://www.kickstarter.com/projects/wandrd/prvke-v4-all-new-edc/rewards"
+        }
+      },
+      "percent_funded": 2807.836,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 16933584,
+      "photo": {
+        "key": "assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png",
+        "full": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1743403685&width=560&sig=NvqMGy%2BjOqVjnhH8eiD9kK4Q3ae5IDp9bjig92sDXXA%3D",
+        "ed": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1743403685&width=352&sig=zG%2FNXeDuCt2jxhKQ4pO86UgXBKjc%2F1LAVo2pyRBVgDs%3D",
+        "med": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1743403685&width=272&sig=WVK2fSGILb5YTS1afKo4fhRtEuh1oOTnNCdgceRQ6SM%3D",
+        "little": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1743403685&width=208&sig=h8prNVQQ54EzSslaYxt4I7Nwe%2BzbCObkssiqw7ugILA%3D",
+        "small": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1743403685&width=160&sig=b%2FVZY7DcuibyLdKuzkJ7ZDAossMs6Df8TvNX0fus8MA%3D",
+        "thumb": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1743403685&width=48&sig=ibaVHkmMwjbwzkq1Mcb4b8nYMOZyv4aD%2ByGXMDWmSjg%3D",
+        "1024x576": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1743403685&width=1024&sig=MyVisNGSljUM4Xjy9%2BDqretFiNS9pYaZ4S7WtRbC5LI%3D",
+        "1536x864": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1743403685&width=1552&sig=pgZ8cd34EgHGmy7OFAmBPP5yQzXwrxCtOjM2TQ%2FCWOc%3D"
+      },
+      "name": "Secure Your Bag in Style with Handcrafted Japanese Leather",
+      "blurb": "Struggling with slipping bags? torogi’s Oil Dakota leather＆antique gold hardware offer a stylish, durable solution for seamless travel",
+      "goal": 200000.0,
+      "pledged": 651711.0,
+      "state": "successful",
+      "slug": "secure-your-bag-in-style-with-handcrafted-japanese-leather",
+      "country": "JP",
+      "country_displayable_name": "Japan",
+      "currency": "JPY",
+      "currency_symbol": "¥",
+      "currency_trailing_code": false,
+      "deadline": 1746788449,
+      "state_changed_at": 1746788449,
+      "created_at": 1730956780,
+      "launched_at": 1742900449,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 79,
+      "static_usd_rate": 0.006675,
+      "usd_pledged": "4350.170925",
+      "converted_pledged_amount": 4473,
+      "fx_rate": 0.00629435,
+      "usd_exchange_rate": 0.00686464,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 1420348281,
+        "name": "松田　可代子",
+        "slug": "torogi",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/048/334/303/da1662a73451eb1700edfc2c358ffebc_original.jpg?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1740666104&width=40&sig=KeQWmV5Vqpp%2FkJZz4vckm%2B54kleyhF0bR8b0Sqi3Yog%3D",
+          "small": "https://i.kickstarter.com/assets/048/334/303/da1662a73451eb1700edfc2c358ffebc_original.jpg?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1740666104&width=80&sig=%2Fqgq50J34H9GYI%2FC9C3UlJ3DRQUpu49UTYKeaZ530d4%3D",
+          "medium": "https://i.kickstarter.com/assets/048/334/303/da1662a73451eb1700edfc2c358ffebc_original.jpg?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1740666104&width=160&sig=pCTAmH33GWfIJOVI1qfzfshGbnRganuGGLhXKh8GD3Y%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/torogi"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/1420348281?signature=1779393280.233193f5d32927a46af63643170819d41f14d780"
+          }
+        }
+      },
+      "location": {
+        "id": 28457204,
+        "name": "Osaka",
+        "slug": "osaka-osaka-shi-jp",
+        "short_name": "Osaka, Japan",
+        "displayable_name": "Osaka, Japan",
+        "localized_name": "Osaka",
+        "country": "JP",
+        "state": "Osaka Prefecture",
+        "type": "LocalAdmin",
+        "is_root": false,
+        "expanded_country": "Japan",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/osaka-osaka-shi-jp",
+            "location": "https://www.kickstarter.com/locations/osaka-osaka-shi-jp"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779356889.648eb758b7fa8205c2828c16ff9fff8ea00f2ae2&woe_id=28457204"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1332365,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779305611-sawiJJcrH%2F13N1FcIwL2xSIXL8Xc9%2Buk0UBDD6PN8pQ%3D/projects/5024745/video-1332365-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779305611-sawiJJcrH%2F13N1FcIwL2xSIXL8Xc9%2Buk0UBDD6PN8pQ%3D/projects/5024745/video-1332365-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779305611-sawiJJcrH%2F13N1FcIwL2xSIXL8Xc9%2Buk0UBDD6PN8pQ%3D/projects/5024745/video-1332365-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5024745/video-1332365-h264_720.jpg?2024"
+      },
+      "profile": {
+        "id": 5064221,
+        "project_id": 5064221,
+        "state": "inactive",
+        "state_changed_at": 1730956780,
+        "name": "Secure Your Bag in Style with Handcrafted Japanese Leather",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1743403685&width=1552&sig=pgZ8cd34EgHGmy7OFAmBPP5yQzXwrxCtOjM2TQ%2FCWOc%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/048/724/131/89c0437628a42851a647e08f1ea3e021_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1743403685&width=560&sig=NvqMGy%2BjOqVjnhH8eiD9kK4Q3ae5IDp9bjig92sDXXA%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/torogi/secure-your-bag-in-style-with-handcrafted-japanese-leather",
+          "rewards": "https://www.kickstarter.com/projects/torogi/secure-your-bag-in-style-with-handcrafted-japanese-leather/rewards"
+        }
+      },
+      "percent_funded": 325.8555,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 1634689393,
+      "photo": {
+        "key": "assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg",
+        "full": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1743848890&width=560&sig=ksympyaGOcUb%2BZdk2ceSRlFlat7SDMbIswTijFXtXJY%3D",
+        "ed": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1743848890&width=352&sig=uXgqE4%2FsOb4BRsBPOuATcAim%2FGthheBVdozI0TG5VuE%3D",
+        "med": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1743848890&width=272&sig=51u9TBKNPcmKxZC2INSXoPxfigEqDIYnOyW8nRf5TcM%3D",
+        "little": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1743848890&width=208&sig=DMFzcOyilYzWDGCCAV7a57hx%2F1xl9EliZny%2FlrAcKVs%3D",
+        "small": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1743848890&width=160&sig=HlBLS5yPzHHaDf6M0mfiVgSOkBi0Zo20c9S2gr5qqQo%3D",
+        "thumb": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1743848890&width=48&sig=LZGdNLaQUFY16%2FeHpvTWgi257ZpYApCz8kG1PLmdWFU%3D",
+        "1024x576": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1743848890&width=1024&sig=zuzGFiWXOPSl2WccSOVWeaE9L1ahgh7%2BQSVnk%2Bzrffg%3D",
+        "1536x864": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1743848890&width=1552&sig=035dFALXGsHXnjUarYqq5zmT4w4S7pkLhX35ShQX1%2BM%3D"
+      },
+      "name": "WooshX – The Toiletry Bag That Travels Smarter.",
+      "blurb": "180° Lay-Flat | Magnetic Smart | Multi-Zone Pack | Waterproof Pocket | Wipe-Clean Interior | 3 Sizes, 3 Colours | The Traveler's Choice",
+      "goal": 2000.0,
+      "pledged": 110204.0,
+      "state": "successful",
+      "slug": "wooshx-the-toiletry-bag-that-travels-smarter",
+      "country": "GB",
+      "country_displayable_name": "the United Kingdom",
+      "currency": "GBP",
+      "currency_symbol": "£",
+      "currency_trailing_code": false,
+      "deadline": 1744367793,
+      "state_changed_at": 1744367795,
+      "created_at": 1732712446,
+      "launched_at": 1741169083,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 1155,
+      "static_usd_rate": 1.26940282,
+      "usd_pledged": "139893.26837528",
+      "converted_pledged_amount": 143661,
+      "fx_rate": 1.33993475,
+      "usd_exchange_rate": 1.30359911,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 1851603963,
+        "name": "TRAVELAND",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/037/202/641/d206bdd625480ed41ca308cfc95c7c11_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1652471133&width=40&sig=R1K1l39abj2VAbAKLai4Qp%2FkZViOvq5HAxE2J0poovY%3D",
+          "small": "https://i.kickstarter.com/assets/037/202/641/d206bdd625480ed41ca308cfc95c7c11_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1652471133&width=80&sig=trwO%2F%2FyOo3aTGIrU%2FgwvYjg2FZo8AzGHSPfMN32RciI%3D",
+          "medium": "https://i.kickstarter.com/assets/037/202/641/d206bdd625480ed41ca308cfc95c7c11_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1652471133&width=160&sig=7FgcYhX5uZu3UpAfU7x9AAijADkb2xPMTuNJQ5fesRo%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/1851603963"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/1851603963?signature=1779393280.8ea51999b5b9401b8230cdddd7a3dca39846ef97"
+          }
+        }
+      },
+      "location": {
+        "id": 44418,
+        "name": "London",
+        "slug": "london-gb",
+        "short_name": "London, UK",
+        "displayable_name": "London, UK",
+        "localized_name": "London",
+        "country": "GB",
+        "state": "England",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United Kingdom",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/london-gb",
+            "location": "https://www.kickstarter.com/locations/london-gb"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355285.172645639dae7e517c2fc2273500218efa255d3f&woe_id=44418"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1352873,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779285196-vK6ueqt5ewlEQnK4lkNY5Zrs8Zhi%2F%2B0NxBCJaNRs59w%3D/projects/5038848/video-1352873-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779285196-vK6ueqt5ewlEQnK4lkNY5Zrs8Zhi%2F%2B0NxBCJaNRs59w%3D/projects/5038848/video-1352873-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779285196-vK6ueqt5ewlEQnK4lkNY5Zrs8Zhi%2F%2B0NxBCJaNRs59w%3D/projects/5038848/video-1352873-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5038848/video-1352873-h264_720.jpg?2025"
+      },
+      "profile": {
+        "id": 5078324,
+        "project_id": 5078324,
+        "state": "active",
+        "state_changed_at": 1772598107,
+        "name": "WooshX – The Toiletry Bag That Travels Smarter.",
+        "blurb": "180° Lay-Flat | Magnetic Smart | Multi-Zone Pack | Waterproof Pocket | Wipe-Clean Interior | 3 Sizes, 3 Colours | The Traveler's Choice",
+        "background_color": "",
+        "text_color": "",
+        "link_background_color": "",
+        "link_text_color": "",
+        "link_text": "PRE-ORDER",
+        "link_url": "https://www.indiegogo.com/en/projects/travelandstore/wooshx-the-toiletry-bag-that-travels-smarter",
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1743848890&width=1552&sig=035dFALXGsHXnjUarYqq5zmT4w4S7pkLhX35ShQX1%2BM%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/048/793/594/80a75ffc3898e09631ebee044f8cb29b_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1743848890&width=560&sig=ksympyaGOcUb%2BZdk2ceSRlFlat7SDMbIswTijFXtXJY%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/1851603963/wooshx-the-toiletry-bag-that-travels-smarter",
+          "rewards": "https://www.kickstarter.com/projects/1851603963/wooshx-the-toiletry-bag-that-travels-smarter/rewards"
+        }
+      },
+      "percent_funded": 5510.2,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 215604020,
+      "photo": {
+        "key": "assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg",
+        "full": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1739327764&width=560&sig=RfoPvgXPl4QonXaM4L5BhtXGuBm%2FH4GPz33WH%2FCZyeY%3D",
+        "ed": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1739327764&width=352&sig=J%2BYnVsIPNrdAjHH8r%2BTcuFbw6Kh4xAZEINa8TvPYnfs%3D",
+        "med": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1739327764&width=272&sig=MqJPG5yIERRVEao1QfymUWRG4fvJdu0r97N%2ByW3Ms4w%3D",
+        "little": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1739327764&width=208&sig=A6jDaCIgJ3GC%2FevaN1u4z88jZQkCQDiY4h7mOa2Xt2Q%3D",
+        "small": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1739327764&width=160&sig=amjNqMnP28AMF6RT7djPus5i01fy9c7Dn6nVgSy1pxE%3D",
+        "thumb": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1739327764&width=48&sig=ajmdEHJ6hNyHkUvQEcjFGI7lIHDU8C9ysciKKsjypco%3D",
+        "1024x576": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1739327764&width=1024&sig=MZlTrfxT42mTM99ntBJzrbBoeNG0t10qi56nJJUZa30%3D",
+        "1536x864": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1739327764&width=1552&sig=T59mIUEq2tuFQwnWggwsqJfXB7P9Cczk8o1FTwvc82k%3D"
+      },
+      "name": "HubPack X | AntiTheft, Cut-Resistant & Travel-Ready Bag 🗺️",
+      "blurb": "Spacious Design with TSA Lock & Luggage Slot for Seamless Travel & Commute",
+      "goal": 5000.0,
+      "pledged": 115514.0,
+      "state": "successful",
+      "slug": "hubpack-x-antitheft-cut-resistant-and-travel-ready-backpack",
+      "country": "US",
+      "country_displayable_name": "the United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1741098631,
+      "state_changed_at": 1741098633,
+      "created_at": 1737860470,
+      "launched_at": 1739284231,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 613,
+      "static_usd_rate": 1.0,
+      "usd_pledged": "115514.0",
+      "converted_pledged_amount": 115514,
+      "fx_rate": 1.0,
+      "usd_exchange_rate": 1.0,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 1021538906,
+        "name": "Korin Design",
+        "slug": "korindesign",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": true,
+        "backing_action_count": 1,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/052/466/078/54e854a712128b4b05fe69bc95b7901e_original.jpg?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1770171985&width=40&sig=vpY1QgZ5Y5djRhu7suRBo%2B7I9hURWIAuQeduN4UU2vQ%3D",
+          "small": "https://i.kickstarter.com/assets/052/466/078/54e854a712128b4b05fe69bc95b7901e_original.jpg?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1770171985&width=80&sig=9w%2Fc1qdfz3T8MOKpfC9Qp5BlvI0CdV2N7747mS%2BxLZA%3D",
+          "medium": "https://i.kickstarter.com/assets/052/466/078/54e854a712128b4b05fe69bc95b7901e_original.jpg?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1770171985&width=160&sig=bie%2FUa877Z3076cl1d%2BJSyj1z9uPOo2LQANPzn5UlQ8%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/korindesign"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/1021538906?signature=1779393280.e5e1c2ab36b932879f47421411d0fd1205e46b05"
+          }
+        }
+      },
+      "location": {
+        "id": 2356304,
+        "name": "Artesia",
+        "slug": "artesia-ca",
+        "short_name": "Artesia, CA",
+        "displayable_name": "Artesia, CA",
+        "localized_name": "Artesia",
+        "country": "US",
+        "state": "CA",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United States",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/artesia-ca",
+            "location": "https://www.kickstarter.com/locations/artesia-ca"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779358383.1e5d18cd3e287fa76903f6b798db08d299efadc9&woe_id=2356304"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1338982,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779260321-gVOIYwjoXHNdhk1XzjZDGAbuwSjRukdcwwrc9pz%2B2Vs%3D/projects/5077987/video-1338982-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779260321-gVOIYwjoXHNdhk1XzjZDGAbuwSjRukdcwwrc9pz%2B2Vs%3D/projects/5077987/video-1338982-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779260321-gVOIYwjoXHNdhk1XzjZDGAbuwSjRukdcwwrc9pz%2B2Vs%3D/projects/5077987/video-1338982-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5077987/video-1338982-h264_720.jpg?2025"
+      },
+      "profile": {
+        "id": 5117463,
+        "project_id": 5117463,
+        "state": "active",
+        "state_changed_at": 1741141398,
+        "name": "HubPack X | AntiTheft, Cut-Resistant & Travel-Ready Bag �️",
+        "blurb": "Spacious Design with TSA Lock & Luggage Slot for Seamless Travel & Commute",
+        "background_color": "",
+        "text_color": "",
+        "link_background_color": "",
+        "link_text_color": "",
+        "link_text": "ORDER NOW!",
+        "link_url": "https://www.korin-design.com/collections/featured-collection/products/hubpack-x-slash-proof",
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1739327764&width=1552&sig=T59mIUEq2tuFQwnWggwsqJfXB7P9Cczk8o1FTwvc82k%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/048/151/158/e283b32b041243effa1889e608132df8_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1739327764&width=560&sig=RfoPvgXPl4QonXaM4L5BhtXGuBm%2FH4GPz33WH%2FCZyeY%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/korindesign/hubpack-x-antitheft-cut-resistant-and-travel-ready-backpack",
+          "rewards": "https://www.kickstarter.com/projects/korindesign/hubpack-x-antitheft-cut-resistant-and-travel-ready-backpack/rewards"
+        }
+      },
+      "percent_funded": 2310.2799999999997,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 113942526,
+      "photo": {
+        "key": "assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png",
+        "full": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1738345620&width=560&sig=nfqaY%2BBb4TLAHBq5u5aXwnRsbsCU5cRavBjcsvWtK4A%3D",
+        "ed": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1738345620&width=352&sig=9MHzCGmp2zrSIxjtxCYd6zCH86wZ8jhmm5b9LOe85L4%3D",
+        "med": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1738345620&width=272&sig=6HcZzH4hVBhwkgqAXfU5c6Z66wQrVcfHrVnnQCDzbvU%3D",
+        "little": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1738345620&width=208&sig=VP57s2QO3ZEvoQDiuNEQXlJwY3jUu5jpS8cjerpc%2Fas%3D",
+        "small": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1738345620&width=160&sig=UdZiqm%2BFzc0ibnL%2F7%2BtjF2BP46FRAXKMfTCo5f8pLFM%3D",
+        "thumb": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1738345620&width=48&sig=5pdNu08MO6ggdrS4klc%2BFGLs1BR1HmGXUnu0NuHm7mw%3D",
+        "1024x576": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1738345620&width=1024&sig=DtHZUVS6MvhoIgiDxGh1qSkgT7EJ04UQVtctMp7eja4%3D",
+        "1536x864": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1738345620&width=1552&sig=zG5%2Ft6QLSVvQIeLNxi8EOiWYLNNk2qm1PRyo3uFu0rY%3D"
+      },
+      "name": "Almond Oak: The Expandable Travel Backpack 25L + 5L",
+      "blurb": "The Brand Built For One Bag Travel",
+      "goal": 5000.0,
+      "pledged": 50582.0,
+      "state": "successful",
+      "slug": "travelbag",
+      "country": "GB",
+      "country_displayable_name": "the United Kingdom",
+      "currency": "GBP",
+      "currency_symbol": "£",
+      "currency_trailing_code": false,
+      "deadline": 1741294795,
+      "state_changed_at": 1741294795,
+      "created_at": 1695998151,
+      "launched_at": 1738702795,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 564,
+      "static_usd_rate": 1.22583571,
+      "usd_pledged": "62005.22188322",
+      "converted_pledged_amount": 65255,
+      "fx_rate": 1.33993475,
+      "usd_exchange_rate": 1.29009785,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 2053079759,
+        "name": "Almond Oak",
+        "slug": "onebag",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/046/651/639/358689622b1ec0f92873c1777b4ce326_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1727465252&width=40&sig=0eqS1rjL7bEX6hIRzMH%2F8QYzijLsmP8XmA%2BuQHWxHio%3D",
+          "small": "https://i.kickstarter.com/assets/046/651/639/358689622b1ec0f92873c1777b4ce326_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1727465252&width=80&sig=lSlnEzy%2Bdf%2FVspCVASKrt33r3ge2GJ6JOxy3ugJrMd4%3D",
+          "medium": "https://i.kickstarter.com/assets/046/651/639/358689622b1ec0f92873c1777b4ce326_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1727465252&width=160&sig=BljCot3Ke0L0MEX3n4uXj3jZKeDGDNhTpaw7M7CaDjo%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/onebag"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/2053079759?signature=1779393280.7326027e1a8a991edac1ee30581cd3bfcd4ad79b"
+          }
+        }
+      },
+      "location": {
+        "id": 44418,
+        "name": "London",
+        "slug": "london-gb",
+        "short_name": "London, UK",
+        "displayable_name": "London, UK",
+        "localized_name": "London",
+        "country": "GB",
+        "state": "England",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United Kingdom",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/london-gb",
+            "location": "https://www.kickstarter.com/locations/london-gb"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355285.172645639dae7e517c2fc2273500218efa255d3f&woe_id=44418"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1328905,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779277261-DYUJ87wgdrqpKCf7LY8RqEHA8IE5wD94rsq%2B%2FeDjI8o%3D/projects/4663901/video-1328905-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779277261-DYUJ87wgdrqpKCf7LY8RqEHA8IE5wD94rsq%2B%2FeDjI8o%3D/projects/4663901/video-1328905-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779277261-DYUJ87wgdrqpKCf7LY8RqEHA8IE5wD94rsq%2B%2FeDjI8o%3D/projects/4663901/video-1328905-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 640,
+        "height": 360,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/4663901/video-1328905-h264_base.jpg?2024"
+      },
+      "profile": {
+        "id": 4703377,
+        "project_id": 4703377,
+        "state": "active",
+        "state_changed_at": 1741298782,
+        "name": "Almond Oak: The Expandable Travel Backpack 25L + 5L",
+        "blurb": "The Brand Built For One Bag Travel",
+        "background_color": "",
+        "text_color": "",
+        "link_background_color": "",
+        "link_text_color": "",
+        "link_text": "Our Website",
+        "link_url": "https://almondoak.com/products/travelbag",
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1738345620&width=1552&sig=zG5%2Ft6QLSVvQIeLNxi8EOiWYLNNk2qm1PRyo3uFu0rY%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/048/020/380/7aa93fe5cb96f6ad23402af9b39e3466_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1738345620&width=560&sig=nfqaY%2BBb4TLAHBq5u5aXwnRsbsCU5cRavBjcsvWtK4A%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/onebag/travelbag",
+          "rewards": "https://www.kickstarter.com/projects/onebag/travelbag/rewards"
+        }
+      },
+      "percent_funded": 1011.6400000000001,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    },
+    {
+      "id": 1264866615,
+      "photo": {
+        "key": "assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg",
+        "full": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1733430426&width=560&sig=%2FuJfnb6v3lTo3OrXKDvxbIXwA9FTEUl9X38XP1NRM1I%3D",
+        "ed": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1733430426&width=352&sig=myKJneCdShhGW0J1aMcwh%2B%2BDA1Dif5DTn2SyHcKABjY%3D",
+        "med": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1733430426&width=272&sig=eVVKR2IFN4wCJYUfmA2ikH9sT1nhvV9UnSITNaKoyho%3D",
+        "little": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1733430426&width=208&sig=jHUvqgUonP7xz8u%2FsP5pxzhMMd2%2FBSwMN3W%2B2MhFGoU%3D",
+        "small": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1733430426&width=160&sig=ca6hdzhGL6s6DPvaTqmAYbY7TJgk9yO58LjMN8kr7PU%3D",
+        "thumb": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1733430426&width=48&sig=TG1AHkI0fgR%2Fw8eev5RqiwWiC%2F9jLBByVrORFr5b50s%3D",
+        "1024x576": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1733430426&width=1024&sig=oGllVl6%2BrcvHMxB45ROGsTWdALl1h5vPkCejznIYGm0%3D",
+        "1536x864": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1733430426&width=1552&sig=wwxNutWOLWgGbVqmA1DVilAP63ROFbYL2SceAr5UIoY%3D"
+      },
+      "name": "The Karma Weekender Bag by Practice",
+      "blurb": "A functional travel bag with purpose",
+      "goal": 30000.0,
+      "pledged": 30300.0,
+      "state": "successful",
+      "slug": "the-karma-weekender-bag-by-practice",
+      "country": "US",
+      "country_displayable_name": "the United States",
+      "currency": "USD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1736625540,
+      "state_changed_at": 1736625546,
+      "created_at": 1725481010,
+      "launched_at": 1734377446,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 61,
+      "static_usd_rate": 1.0,
+      "usd_pledged": "30300.0",
+      "converted_pledged_amount": 30300,
+      "fx_rate": 1.0,
+      "usd_exchange_rate": 1.0,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 1144245677,
+        "name": "Practice",
+        "slug": "practicewhatyoulove",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/046/337/392/c96f7423e795a4ca23bf67f87477ac99_original.jpg?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1725487248&width=40&sig=ECjNnwK64V673QwCiRqvrPJJeNeXzh4k0u%2BYMD%2FCXe8%3D",
+          "small": "https://i.kickstarter.com/assets/046/337/392/c96f7423e795a4ca23bf67f87477ac99_original.jpg?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1725487248&width=80&sig=nH54NccdPyewdKOh5Ea4Pw8b1cmgo%2BqjTB4fhLb2ks8%3D",
+          "medium": "https://i.kickstarter.com/assets/046/337/392/c96f7423e795a4ca23bf67f87477ac99_original.jpg?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1725487248&width=160&sig=Cc8HDLZOtF0wVuI6M6rEDCfdJAx6jNrjzArWwpIXeLs%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/practicewhatyoulove"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/1144245677?signature=1779393281.358ed7f567b92b91c248ce837bcfad05c451bc01"
+          }
+        }
+      },
+      "location": {
+        "id": 2406008,
+        "name": "Fort Wayne",
+        "slug": "fort-wayne-in",
+        "short_name": "Fort Wayne, IN",
+        "displayable_name": "Fort Wayne, IN",
+        "localized_name": "Fort Wayne",
+        "country": "US",
+        "state": "IN",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "United States",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/fort-wayne-in",
+            "location": "https://www.kickstarter.com/locations/fort-wayne-in"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779359871.2970f03eda5fce8fc7251209ed7207aa3e5c7137&woe_id=2406008"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1329307,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779232289-lmSLggEL0CDZfwtTi7oMDJaYQ2rqQsJKt2KSLYeluQ4%3D/projects/4973044/video-1329307-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779232289-lmSLggEL0CDZfwtTi7oMDJaYQ2rqQsJKt2KSLYeluQ4%3D/projects/4973044/video-1329307-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779232289-lmSLggEL0CDZfwtTi7oMDJaYQ2rqQsJKt2KSLYeluQ4%3D/projects/4973044/video-1329307-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/4973044/video-1329307-h264_720.jpg?2024"
+      },
+      "profile": {
+        "id": 5012520,
+        "project_id": 5012520,
+        "state": "active",
+        "state_changed_at": 1760594930,
+        "name": "The Karma Weekender Bag by Practice",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1733430426&width=1552&sig=wwxNutWOLWgGbVqmA1DVilAP63ROFbYL2SceAr5UIoY%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/047/494/512/3b7fdedc6681a103fe4d7a347561e242_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1733430426&width=560&sig=%2FuJfnb6v3lTo3OrXKDvxbIXwA9FTEUl9X38XP1NRM1I%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/practicewhatyoulove/the-karma-weekender-bag-by-practice",
+          "rewards": "https://www.kickstarter.com/projects/practicewhatyoulove/the-karma-weekender-bag-by-practice/rewards"
+        }
+      },
+      "percent_funded": 101.0,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": false
+    },
+    {
+      "id": 419868322,
+      "photo": {
+        "key": "assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg",
+        "full": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1732778326&width=560&sig=KzyVXJ7eMth4PTGgtEFFahgPq5Yzgj%2BYzvZvX4DrliU%3D",
+        "ed": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1732778326&width=352&sig=0qAsQ8Y58RPaFQzB02Cucf6oyJpSvFvBREB%2BKIonr5o%3D",
+        "med": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1732778326&width=272&sig=0FYieHpN2Hl6DVjMou1dE%2F2rRuWC%2FosH2UY78h4WK24%3D",
+        "little": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1732778326&width=208&sig=O81RHss18Sg%2Bj4N5cWseUFtWAIQaaFQnIZxO%2BQzNxQo%3D",
+        "small": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1732778326&width=160&sig=p9y5gHg8Tm5c75bw5v65kzDJ5MR0FXaVeD5dhiKfsaY%3D",
+        "thumb": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1732778326&width=48&sig=At%2FtogR8bCWrqIqz7%2B0ozTsPbroeWTM57T%2BM9T02aDQ%3D",
+        "1024x576": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1732778326&width=1024&sig=rvNVOTc6sA0eC5MxadzYwQYbgWX8dWYlrjMLt1jSAP0%3D",
+        "1536x864": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1732778326&width=1552&sig=16zHloZIHOTJUKFA%2FHoprplAcxvoLKHA6gr9hs3aX7c%3D"
+      },
+      "name": "Alex T1: Minimalist travel pouch organizer / sling bag",
+      "blurb": "30+ pockets backpack organizer for cables,charger, photography EDC tech gadgets,drone,camera, 3L capacity, fits iPad mini, also a sling",
+      "goal": 10000.0,
+      "pledged": 304934.0,
+      "state": "successful",
+      "slug": "alex-t1-comeback-unique-tech-pouch-with-new-khaki-color",
+      "country": "HK",
+      "country_displayable_name": "Hong Kong",
+      "currency": "HKD",
+      "currency_symbol": "$",
+      "currency_trailing_code": true,
+      "deadline": 1736245663,
+      "state_changed_at": 1736245665,
+      "created_at": 1729690224,
+      "launched_at": 1730222204,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 660,
+      "static_usd_rate": 0.12867131,
+      "usd_pledged": "39236.25724354",
+      "converted_pledged_amount": 39233,
+      "fx_rate": 0.12767162,
+      "usd_exchange_rate": 0.12866146,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 987629286,
+        "name": "Alex backpack",
+        "slug": "alanbackpack101",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/020/850/771/080bc868677dcd767efd16772f6aebd7_original.jpg?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1523450172&width=40&sig=ckZsc%2BvQc0eCR7SGP%2Bk8lVj6XjceUVJ8IrRthWcFT48%3D",
+          "small": "https://i.kickstarter.com/assets/020/850/771/080bc868677dcd767efd16772f6aebd7_original.jpg?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1523450172&width=80&sig=GoJYJCvDg6szuezCj70oHX8Rj2JBWBYJjDQZ13SI05Y%3D",
+          "medium": "https://i.kickstarter.com/assets/020/850/771/080bc868677dcd767efd16772f6aebd7_original.jpg?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1523450172&width=160&sig=tVEKKutLdmOknj4mKyMowXc6vJ0fmPnbNGZToQW8lzI%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/alanbackpack101"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/987629286?signature=1779393281.af5d144220f665c785921cb4e3b9abb5fdb9aab4"
+          }
+        }
+      },
+      "location": {
+        "id": 2165353,
+        "name": "Kowloon",
+        "slug": "kowloon-hk",
+        "short_name": "Kowloon, Hong Kong",
+        "displayable_name": "Kowloon, Hong Kong",
+        "localized_name": "Kowloon",
+        "country": "HK",
+        "state": "Kowloon",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "Hong Kong",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/kowloon-hk",
+            "location": "https://www.kickstarter.com/locations/kowloon-hk"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355465.5c80ed217c0f35de876b00ecd17336006ee52a7b&woe_id=2165353"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1329519,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779245486-PQC3o5XQzwo3uFV9fGIFjhqSqGkI0OEIoJuLtBwjeRo%3D/projects/5014848/video-1329519-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779245486-PQC3o5XQzwo3uFV9fGIFjhqSqGkI0OEIoJuLtBwjeRo%3D/projects/5014848/video-1329519-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779245486-PQC3o5XQzwo3uFV9fGIFjhqSqGkI0OEIoJuLtBwjeRo%3D/projects/5014848/video-1329519-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 1280,
+        "height": 720,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/5014848/video-1329519-h264_720.jpg?2024"
+      },
+      "profile": {
+        "id": 5054324,
+        "project_id": 5054324,
+        "state": "inactive",
+        "state_changed_at": 1729690224,
+        "name": "Alex T1: Minimalist travel pouch organizer / sling bag",
+        "blurb": null,
+        "background_color": null,
+        "text_color": null,
+        "link_background_color": null,
+        "link_text_color": null,
+        "link_text": null,
+        "link_url": null,
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1732778326&width=1552&sig=16zHloZIHOTJUKFA%2FHoprplAcxvoLKHA6gr9hs3aX7c%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/047/424/187/c879a6319379b5fde43f0ddafced3553_original.jpg?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1732778326&width=560&sig=KzyVXJ7eMth4PTGgtEFFahgPq5Yzgj%2BYzvZvX4DrliU%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/alanbackpack101/alex-t1-comeback-unique-tech-pouch-with-new-khaki-color",
+          "rewards": "https://www.kickstarter.com/projects/alanbackpack101/alex-t1-comeback-unique-tech-pouch-with-new-khaki-color/rewards"
+        }
+      },
+      "percent_funded": 3049.34,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": false
+    },
+    {
+      "id": 772584383,
+      "photo": {
+        "key": "assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png",
+        "full": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1729471538&width=560&sig=IPZ8VguDRJblulsD0v0qPGwhH68x7t7nu8qsmT%2BSjzo%3D",
+        "ed": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=198&origin=ugc&q=92&v=1729471538&width=352&sig=GjfHfPkNEzz0pShOecGtgKq9CMA0uylyM7d8AuZ0XJs%3D",
+        "med": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=153&origin=ugc&q=92&v=1729471538&width=272&sig=Y5wVl4xZZk3cxXVeKqnptnVjOS%2Faa%2FD1ZZ1A36tSFOQ%3D",
+        "little": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=117&origin=ugc&q=92&v=1729471538&width=208&sig=0swVEFmOu4IZkk%2BrE0G30%2FlSl7YVHC8sRPIVMaxgQc4%3D",
+        "small": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=90&origin=ugc&q=92&v=1729471538&width=160&sig=PCysHPnRjjzH4dhR4vz%2FfO%2BN3LtFezxImwE0%2FdiNFJI%3D",
+        "thumb": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=27&origin=ugc&q=92&v=1729471538&width=48&sig=b8MP34OLuWO6brFTelIHetshffZF7ikNAU%2BXf9j4vYs%3D",
+        "1024x576": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=576&origin=ugc&q=92&v=1729471538&width=1024&sig=gKU0cUBrt69IxmhnWy9zkFmbxDhdLeTjomuqe3VvxaY%3D",
+        "1536x864": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1729471538&width=1552&sig=zzOLE4V7cpCniKSu2VqhIfn9MYW2PVu2v4u%2F%2BelsiWI%3D"
+      },
+      "name": "LOOPiT - Backpack Magnetic Anti Theft Strap v.3",
+      "blurb": "Protect your backpack, camera bag, purse, luggage, laptop, wallet etc.. Travel essential & EDC accessory",
+      "goal": 2500.0,
+      "pledged": 43691.0,
+      "state": "successful",
+      "slug": "loopit-backpack-magnetic-anti-theft-strap-v3",
+      "country": "FR",
+      "country_displayable_name": "France",
+      "currency": "EUR",
+      "currency_symbol": "€",
+      "currency_trailing_code": false,
+      "deadline": 1733414400,
+      "state_changed_at": 1733414400,
+      "created_at": 1703699469,
+      "launched_at": 1729612159,
+      "is_in_post_campaign_pledging_phase": false,
+      "staff_pick": true,
+      "is_starrable": false,
+      "disable_communication": false,
+      "backers_count": 924,
+      "static_usd_rate": 1.08650893,
+      "usd_pledged": "47470.66166063",
+      "converted_pledged_amount": 45955,
+      "fx_rate": 1.1602274,
+      "usd_exchange_rate": 1.05183551,
+      "current_currency": "USD",
+      "usd_type": "international",
+      "creator": {
+        "id": 396962456,
+        "name": "Loop",
+        "slug": "cambrone",
+        "is_registered": null,
+        "is_email_verified": null,
+        "chosen_currency": null,
+        "is_superbacker": null,
+        "has_admin_message_badge": false,
+        "partner_badge": null,
+        "ppo_has_action": false,
+        "backing_action_count": 0,
+        "avatar": {
+          "thumb": "https://i.kickstarter.com/assets/019/566/789/8b4c2f68f7e65c44d47e4dac69c99c5f_original.png?anim=false&fit=cover&height=40&origin=ugc&q=92&v=1597059817&width=40&sig=mHvdcH5FJU169Ii5TIahh%2FcS6rXKXEIH%2FWpdfojOrTQ%3D",
+          "small": "https://i.kickstarter.com/assets/019/566/789/8b4c2f68f7e65c44d47e4dac69c99c5f_original.png?anim=false&fit=cover&height=80&origin=ugc&q=92&v=1597059817&width=80&sig=jsBdudqITrqjOihVD605Sj6ueOlCL%2BUTFN1TrkSEVm0%3D",
+          "medium": "https://i.kickstarter.com/assets/019/566/789/8b4c2f68f7e65c44d47e4dac69c99c5f_original.png?anim=false&fit=cover&height=160&origin=ugc&q=92&v=1597059817&width=160&sig=LvTytWB92vfsWdUAslJ%2FiwdZw7rkY7SOON1i2xp4qXM%3D"
+        },
+        "urls": {
+          "web": {
+            "user": "https://www.kickstarter.com/profile/cambrone"
+          },
+          "api": {
+            "user": "https://api.kickstarter.com/v1/users/396962456?signature=1779393281.1c8d05b8daa2ebb62c9c21fecf5deb7a76339d0f"
+          }
+        }
+      },
+      "location": {
+        "id": 615702,
+        "name": "Paris",
+        "slug": "paris-fr",
+        "short_name": "Paris, France",
+        "displayable_name": "Paris, France",
+        "localized_name": "Paris",
+        "country": "FR",
+        "state": "Ile-de-France",
+        "type": "Town",
+        "is_root": false,
+        "expanded_country": "France",
+        "urls": {
+          "web": {
+            "discover": "https://www.kickstarter.com/discover/places/paris-fr",
+            "location": "https://www.kickstarter.com/locations/paris-fr"
+          },
+          "api": {
+            "nearby_projects": "https://api.kickstarter.com/v1/discover?signature=1779355474.6f8b427629f3dee4c4d13a71bfba60d080ae160f&woe_id=615702"
+          }
+        }
+      },
+      "category": {
+        "id": 28,
+        "name": "Product Design",
+        "analytics_name": "Product Design",
+        "slug": "design/product design",
+        "position": 5,
+        "parent_id": 7,
+        "parent_name": "Design",
+        "color": 2577151,
+        "urls": {
+          "web": {
+            "discover": "http://www.kickstarter.com/discover/categories/design/product%20design"
+          }
+        }
+      },
+      "video": {
+        "id": 1322266,
+        "status": "successful",
+        "hls": "https://v2.kickstarter.com/1779286422-vZHJIMCJ4viRzg8%2FJ3o3FNu7%2BxVv16erYTlBMOlQK3Q%3D/projects/4716152/video-1322266-hls_playlist.m3u8",
+        "hls_type": "application/x-mpegURL",
+        "high": "https://v2.kickstarter.com/1779286422-vZHJIMCJ4viRzg8%2FJ3o3FNu7%2BxVv16erYTlBMOlQK3Q%3D/projects/4716152/video-1322266-h264_high.mp4",
+        "high_type": "video/mp4; codecs=\"avc1.64001E, mp4a.40.2\"",
+        "base": "https://v2.kickstarter.com/1779286422-vZHJIMCJ4viRzg8%2FJ3o3FNu7%2BxVv16erYTlBMOlQK3Q%3D/projects/4716152/video-1322266-h264_base.mp4",
+        "base_type": "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"",
+        "tracks": "[]",
+        "width": 640,
+        "height": 360,
+        "frame": "https://d15chbti7ht62o.cloudfront.net/projects/4716152/video-1322266-h264_base.jpg?2024"
+      },
+      "profile": {
+        "id": 4755628,
+        "project_id": 4755628,
+        "state": "active",
+        "state_changed_at": 1764010793,
+        "name": "LOOPiT - Backpack Magnetic Anti Theft Strap v.3",
+        "blurb": "Protect your backpack, camera bag, purse, luggage, laptop, wallet etc.. Travel essential & EDC accessory",
+        "background_color": "",
+        "text_color": "",
+        "link_background_color": "",
+        "link_text_color": "",
+        "link_text": "BUY MORE",
+        "link_url": "https://www.loopitprotect.com",
+        "show_feature_image": false,
+        "background_image_opacity": 0.8,
+        "should_show_feature_image_section": true,
+        "feature_image_attributes": {
+          "image_urls": {
+            "default": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=873&origin=ugc&q=92&v=1729471538&width=1552&sig=zzOLE4V7cpCniKSu2VqhIfn9MYW2PVu2v4u%2F%2BelsiWI%3D",
+            "baseball_card": "https://i.kickstarter.com/assets/046/958/055/ebe0ba6a11ed6a464317d31ee68f8c31_original.png?anim=false&fit=cover&gravity=auto&height=315&origin=ugc&q=92&v=1729471538&width=560&sig=IPZ8VguDRJblulsD0v0qPGwhH68x7t7nu8qsmT%2BSjzo%3D"
+          }
+        }
+      },
+      "spotlight": true,
+      "urls": {
+        "web": {
+          "project": "https://www.kickstarter.com/projects/cambrone/loopit-backpack-magnetic-anti-theft-strap-v3",
+          "rewards": "https://www.kickstarter.com/projects/cambrone/loopit-backpack-magnetic-anti-theft-strap-v3/rewards"
+        }
+      },
+      "percent_funded": 1747.64,
+      "is_liked": null,
+      "is_disliked": null,
+      "is_launched": true,
+      "prelaunch_activated": true
+    }
+  ],
+  "total_hits": 49,
+  "ref_tag": "discovery_staff_picks_newest",
+  "aggregations": {},
+  "term_categories": [
+    {
+      "name": "Product Design",
+      "id": 28
+    }
+  ],
+  "seed": "2965485",
+  "search_url": "/discover?page=1&sort=newest&term=travel+bags",
+  "suggestion": "travel bags",
+  "has_more": true
+}
