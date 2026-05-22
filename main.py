@@ -9,7 +9,7 @@ from config import logger
 # Import phase functions
 from phase1_search_fetch import search_phase
 from phase1_merge_clean import phase_1_search_fetch_merge_clean
-from phase2_clickup import fetch_clickup_guidelines
+from phase2_clickup import fetch_brand_voice, fetch_extraction_sop
 from phase3_llm import phase_3_llm_scoring
 from phase4_supabase import upsert_to_supabase
 
@@ -38,18 +38,19 @@ def main():
         # Save debug file
         logger.info("\n📍 PHASE 1d: SAVE DEBUG FILE")
         logger.info("-" * 80)
-        with open("debug_merged.json", "w", encoding="utf-8") as f:
-            json.dump(all_merged, f, indent=2, ensure_ascii=False)
-        logger.info(f"✅ Saved debug_merged.json ({len(all_merged)} projects)")
         
-        # Phase 2: Fetch ClickUp guidelines
-        voice_guidelines = fetch_clickup_guidelines()
-        logger.debug(f"Voice Guidelines:\n{voice_guidelines[:500]}...")  # Log first 500 chars
+        # Phase 2: Fetch ClickUp documents (Brand Voice + Extraction SOP)
+        logger.info("\n📍 PHASE 2: FETCH CLICKUP DOCUMENTS")
+        logger.info("-" * 80)
+        brand_voice = fetch_brand_voice()
+        extraction_sop = fetch_extraction_sop()
         
-        logger.info(f"\n✅ Starting LLM scoring with OpenAI...",all_merged)
-        # Phase 3: LLM scoring
-        if voice_guidelines:
-            all_merged = phase_3_llm_scoring(all_merged, voice_guidelines)
+        # Phase 3: LLM scoring (only if both documents fetched)
+        if brand_voice and extraction_sop:
+            logger.info(f"\n✅ Both ClickUp documents fetched, starting LLM scoring...")
+            all_merged = phase_3_llm_scoring(all_merged, brand_voice, extraction_sop)
+        else:
+            logger.warning("⚠️  Missing ClickUp documents, skipping LLM phase")
         
         # Phase 4: Store to Supabase
         upsert_to_supabase(all_merged)
@@ -59,7 +60,6 @@ def main():
         logger.info("✅ KICKSTARTER MONITOR COMPLETE")
         logger.info("=" * 80)
         logger.info(f"📊 Processed: {len(all_merged)} projects")
-        logger.info(f"💾 Debug file: debug_merged.json")
         logger.info("=" * 80)
     
     except Exception as e:

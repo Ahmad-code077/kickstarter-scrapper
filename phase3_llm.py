@@ -2,94 +2,98 @@
 
 import json
 import time
-import openai
+from openai import OpenAI
+
 
 from config import logger, OPENAI_API_KEY
 
-# Set OpenAI API key
+# Initialize client
+client = None
 if OPENAI_API_KEY:
-    openai.api_key = OPENAI_API_KEY
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
 
-# =========================
-# PHASE 3: LLM SCORING
-# =========================
+def _prepare_project_input(project):
+    """Prepare limited project fields for LLM (no internal analysis)"""
+    return {
+        "project_name": project.get("project_name"),
+        "blurb": project.get("blurb"),
+        "story_clean": project.get("story_clean"),
+        "percent_funded": project.get("percent_funded"),
+        "backers_count": project.get("backers_count"),
+        "comments_count": project.get("comments_count"),
+        "staff_pick": project.get("staff_pick"),
+        "creator_past_campaigns": project.get("creator_past_campaigns"),
+    }
 
-def score_with_openai(project, voice_guidelines):
-    """Phase 3: Score a project using OpenAI with ClickUp voice guidelines"""
+
+
+
+def score_with_openai(project_input, brand_voice, extraction_sop):
+    """Phase 3: Score a project using OpenAI with ClickUp documents"""
     
-    if not OPENAI_API_KEY:
-        logger.warning("⚠️  OpenAI API key not set, skipping LLM scoring")
+    if not client:
+        logger.warning("⚠️ OpenAI client not initialized")
         return None
     
     try:
-        prompt = f"""You are a product expert evaluating Kickstarter projects for a nomadic lifestyle brand.
+        # SYSTEM message: Rules, SOPs, Voice guidelines
+        system_message = f"""You are a product expert evaluating Kickstarter projects for a nomadic lifestyle brand newsletter.
 
-VOICE & SCORING GUIDELINES:
-{voice_guidelines}
+BRAND VOICE GUIDELINES:
+{brand_voice}
 
-PROJECT DATA:
-{json.dumps(project, indent=2)}
+EXTRACTION & SCORING INSTRUCTIONS:
+{extraction_sop}
 
-Based on the guidelines above, evaluate this project. Return a JSON object with:
-- score (0-100)
-- fit_rating (excellent/good/fair/poor)
-- key_strengths (array of strings)
-- concerns (array of strings)
-- recommendation (string: why nomads would/wouldn't like it)
+Follow the instructions above exactly. Return ONLY valid JSON. No markdown, no extra text."""
 
-Return ONLY valid JSON, no markdown, no extra text."""
+        # USER message: The actual project data
+        user_message = json.dumps(project_input, indent=2)
 
-        logger.debug(f"[LLM] Scoring project {project.get('project_id')}")
-        
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a JSON API. Return only valid JSON."},
-                {"role": "user", "content": prompt}
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message}
             ],
             temperature=0.7,
             timeout=30
         )
         
-        result_text = response["choices"][0]["message"]["content"].strip()
+        result_text = response.choices[0].message.content.strip()
         result = json.loads(result_text)
-        
-        logger.info(f"    ✅ Scored: {result.get('fit_rating', 'N/A')} ({result.get('score', 0)}/100)")
         
         return result
     
     except Exception as e:
-        logger.error(f"    ❌ LLM error: {e}")
+        logger.error(f"❌ LLM error: {e}")
         return None
 
 
-def phase_3_llm_scoring(all_projects, voice_guidelines):
+def phase_3_llm_scoring(all_projects, brand_voice, extraction_sop):
     """Phase 3: Score all projects with OpenAI"""
     logger.info("\n📍 PHASE 3: LLM SCORING")
     logger.info("-" * 80)
     
-    if not voice_guidelines:
-        logger.warning("⚠️  No voice guidelines, skipping LLM scoring")
+    if not brand_voice or not extraction_sop:
+        logger.warning("⚠️ Missing ClickUp documents, skipping LLM scoring")
         return all_projects
     
-
-
-    
     for idx, project in enumerate(all_projects, 1):
-        logger.info(f"[{idx}/{len(all_projects)}] {project.get('project_name')[:50]}...")
+        project_name = project.get('project_name', 'Unknown')[:50]
+        logger.info(f"[{idx}/{len(all_projects)}] {project_name}...")
         
-        llm_result = score_with_openai(project, voice_guidelines)
+        project_input = _prepare_project_input(project)
+        llm_result = score_with_openai(project_input, brand_voice, extraction_sop)
         
         if llm_result:
-            # Add LLM results to project
-            project["llm_score"] = llm_result.get("score")
-            project["llm_fit_rating"] = llm_result.get("fit_rating")
-            project["llm_strengths"] = llm_result.get("key_strengths", [])
-            project["llm_concerns"] = llm_result.get("concerns", [])
-            project["llm_recommendation"] = llm_result.get("recommendation")
+            project.update(llm_result)
+            logger.info(f"    ✅ Scored")
+        else:
+            logger.warning(f"    ⚠️ Failed")
         
-        time.sleep(0.5)  # Be nice to OpenAI
+        time.sleep(0.5)
     
     logger.info(f"✅ LLM scoring complete")
     return all_projects

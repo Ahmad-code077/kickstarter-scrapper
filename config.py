@@ -75,8 +75,10 @@ GRAPHQL_URL = "https://www.kickstarter.com/graph"
 # =========================
 
 CLICKUP_WORKSPACE_ID = get_env("CLICKUP_WORKSPACE_ID", required=False)
-CLICKUP_DOC_ID = get_env("CLICKUP_DOC_ID", required=False)
-CLICKUP_PAGE_ID = get_env("CLICKUP_PAGE_ID", required=False)
+CLICKUP_VOICE_DOC_ID = get_env("CLICKUP_VOICE_DOC_ID", required=False)
+CLICKUP_VOICE_PAGE_ID = get_env("CLICKUP_VOICE_PAGE_ID", required=False)
+CLICKUP_SOP_EXTRACTION_DOC_ID = get_env("CLICKUP_SOP_EXTRACTION_DOC_ID", required=False)
+CLICKUP_SOP_EXTRACTION_PAGE_ID = get_env("CLICKUP_SOP_EXTRACTION_PAGE_ID", required=False)
 CLICKUP_API_KEY = get_env("CLICKUP_API_KEY", required=False)
 
 
