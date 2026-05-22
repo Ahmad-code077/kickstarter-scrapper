@@ -4,8 +4,8 @@ from pathlib import Path
 
 url = "https://www.kickstarter.com/graph"
 
-slug = "peak-design/4-new-travel-bags-by-peak-design"
-project_pid = 226943153
+slug = "reusable-grocery-shopping-bag-thats-not-pain-in-the-hand"
+project_pid = 1207952088
 
 # Paste fresh values from browser DevTools
 CSRF_TOKEN = "PWuJwKUPacL6dyWdkZR5JRuh93qpflVTR1CIceEU2649DtqVw9hCvn3DeBRcWWQw_0vXxdS0DhFPIaS3HIKYjw"
@@ -16,121 +16,112 @@ headers = {
     "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
     "content-type": "application/json",
     "origin": "https://www.kickstarter.com",
-    "priority": "u=1, i",
-    "referer": f"https://www.kickstarter.com/projects/{slug}?ref=discovery_staff_picks_newest&term=travel%20bags&total_hits=49&category_id=28",
     "sec-ch-ua": '"Chromium";v="148", "Google Chrome";v="148", "Not/A)Brand";v="99"',
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": '"Windows"',
     "sec-fetch-dest": "empty",
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
-    "user-agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/148.0.0.0 Safari/537.36"
-    ),
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
     "x-csrf-token": CSRF_TOKEN,
     "cookie": COOKIE_STRING,
 }
-
 payload = {
     "query": """
-    query ProjectRecommendations($currentProjectPid: Int!, $currentProjectPidString: String!) {
-      projects(
-        recommended: true
-        first: 4
-        excludePids: [$currentProjectPid]
-        seed: $currentProjectPid
-        similarToPid: $currentProjectPidString
-        state: LIVE
-      ) {
-        nodes {
-          id
-          pid
-          name
-          currentAmountPledgedUsd
+    query GetCompleteProjectData($slug: String!) {
+      project(slug: $slug) {
+        id
+        pid
+        name
+        state
+        deadlineAt
+        launchedAt
+        
+        # Funding stats
+        pledged {
+          amount
+          currency
+        }
+        goal {
+          amount
+          currency
+        }
+        backersCount
+        percentFunded
+        
+        # Campaign content
+        risks
+        story(assetWidth: 680)
+        currency
+        fxRate
+        environmentalCommitments {
+          commitmentCategory
           description
-          deadlineAt
-          isProjectWeLove
-          percentFunded
-          state
-          slug
+        }        
+        # Creator info
+        creator {
+          id
+          name
+          imageUrl(width: 100)
           url
-          imageUrl(width: 427)
-          backersCount
+          biography
           location {
             displayableName
-            discoverUrl
           }
-          category {
-            id
-            name
-            url
+          launchedProjects {
+            totalCount
           }
-          creator {
-            id
-            name
-            biography
-            url
-          }
-          video {
-            id
-            previewImageUrl
-          }
+        }
+        
+        # Comments count (updates doesn't exist, but comments does)
+        comments {
+          totalCount
         }
       }
     }
     """,
     "variables": {
-        "currentProjectPid": project_pid,
-        "currentProjectPidString": str(project_pid),
-    },
+        "slug": slug
+    }
 }
 
-session = Session(
-    impersonate="chrome",
-    headers=headers,
-    timeout=30,
-)
-
+session = Session(impersonate="chrome", headers=headers, timeout=30)
 response = session.post(url, json=payload, allow_redirects=True)
 
-body_text = response.text or ""
-body_bytes = response.content or b""
-
-print("=" * 80)
-print("STATUS:", response.status_code)
-print("FINAL URL:", response.url)
-print("CONTENT TYPE:", response.headers.get("content-type"))
-print("BODY TEXT LENGTH:", len(body_text))
-print("BODY BYTES LENGTH:", len(body_bytes))
-print("=" * 80)
-
-Path("debug_response.txt").write_text(
-    "\n".join([
-        f"STATUS: {response.status_code}",
-        f"FINAL URL: {response.url}",
-        f"CONTENT TYPE: {response.headers.get('content-type')}",
-        f"BODY TEXT LENGTH: {len(body_text)}",
-        "",
-        "HEADERS:",
-        *[f"{k}: {v}" for k, v in response.headers.items()],
-        "",
-        "BODY:",
-        repr(body_text[:3000]),
-    ]),
-    encoding="utf-8"
-)
-
-Path("response_body.bin").write_bytes(body_bytes)
-
 if response.status_code != 200:
-    print("Request failed. Saved debug_response.txt")
+    print(f"Error: {response.status_code}")
+    print(response.text[:500])
     raise SystemExit
 
 data = response.json()
 
-with open("kickstarter_graph_response.json", "w", encoding="utf-8") as f:
+# Save the response
+with open("complete_project_data.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print("Saved: kickstarter_graph_response.json")
+print("✅ Saved: complete_project_data.json")
+
+# Print key stats
+project = data.get("data", {}).get("project", {})
+if project:
+    print("\n" + "=" * 50)
+    print(f"📌 Project: {project.get('name')}")
+    
+    pledged = project.get('pledged', {})
+    goal = project.get('goal', {})
+    print(f"💰 Pledged: {pledged.get('amount')} {pledged.get('currency')}")
+    print(f"🎯 Goal: {goal.get('amount')} {goal.get('currency')}")
+    print(f"👥 Backers: {project.get('backersCount')}")
+    print(f"📈 {project.get('percentFunded')}% funded")
+    
+    comments = project.get('comments', {})
+    print(f"💬 Comments: {comments.get('totalCount')}")
+    
+    rewards = project.get('rewards', {}).get('nodes', [])
+    if rewards:
+        print(f"\n🎁 Reward Tiers: {len(rewards)}")
+        for r in rewards[:3]:
+            print(f"   - {r.get('name')}: {r.get('backersCount')} backers, {r.get('remainingQuantity')} left")
+else:
+    print("❌ No project data found")
+    print(json.dumps(data, indent=2)[:500])
