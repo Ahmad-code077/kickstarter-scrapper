@@ -112,37 +112,62 @@ def fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2):
 
 
 def warm_up_session(session):
-    """Warm up session by visiting discover/advanced page before keyword requests
+    """Warm up session with multi-step browsing before keyword requests
+    
+    Flow:
+    1. Visit homepage (https://www.kickstarter.com/)
+    2. Wait 3-6 seconds (human-like delay)
+    3. Visit discovery page (https://www.kickstarter.com/discover/advanced)
+    4. Wait 5-10 seconds (pre-search delay)
+    5. Ready for keyword requests
     
     Purpose:
     - Establish Cloudflare cookies to avoid 403 on first keyword request
-    - Simulate human browsing behavior
-    - Let curl_cffi session settle
+    - Simulate realistic human browsing behavior
+    - Build request history in session
     
     Args:
         session: curl_cffi Session
     """
-    logger.info("🔥 Warming up session...")
+    logger.info("🔥 Warming up session with multi-step browsing...")
     
-    warmup_url = "https://www.kickstarter.com/discover/advanced"
-    
+    # Step 1: Visit homepage
+    homepage_url = "https://www.kickstarter.com/"
     try:
-        logger.debug(f"[WARMUP] Visiting: {warmup_url}")
-        response = session.get(warmup_url, allow_redirects=True, timeout=30)
-        logger.debug(f"[WARMUP] Status: {response.status_code}")
-        
+        logger.debug(f"[WARMUP_STEP1] Visiting: {homepage_url}")
+        response = session.get(homepage_url, allow_redirects=True, timeout=30)
+        logger.debug(f"[WARMUP_STEP1] Status: {response.status_code}")
         if response.status_code == 200:
-            logger.info("✅ Session warm-up successful, established Cloudflare cookies")
+            logger.info("  ✅ Homepage loaded")
         else:
-            logger.warning(f"⚠️  Session warm-up returned status {response.status_code}")
-    
+            logger.warning(f"  ⚠️  Homepage returned status {response.status_code}")
     except Exception as e:
-        logger.warning(f"⚠️  Session warm-up failed: {e}")
+        logger.warning(f"  ⚠️  Homepage failed: {e}")
     
-    # Always apply human-like delay after warm-up
-    delay = uniform(3, 8)
-    logger.debug(f"[WARMUP_DELAY] Waiting {delay:.2f}s before keyword requests...")
-    time.sleep(delay)
+    # Step 2: Wait 3-6 seconds
+    delay1 = uniform(3, 6)
+    logger.debug(f"[WARMUP_DELAY1] Waiting {delay1:.2f}s before discovery page...")
+    time.sleep(delay1)
+    
+    # Step 3: Visit discovery page
+    discovery_url = "https://www.kickstarter.com/discover/advanced"
+    try:
+        logger.debug(f"[WARMUP_STEP2] Visiting: {discovery_url}")
+        response = session.get(discovery_url, allow_redirects=True, timeout=30)
+        logger.debug(f"[WARMUP_STEP2] Status: {response.status_code}")
+        if response.status_code == 200:
+            logger.info("  ✅ Discovery page loaded")
+        else:
+            logger.warning(f"  ⚠️  Discovery page returned status {response.status_code}")
+    except Exception as e:
+        logger.warning(f"  ⚠️  Discovery page failed: {e}")
+    
+    # Step 4: Wait 5-10 seconds before keyword requests
+    delay2 = uniform(5, 10)
+    logger.debug(f"[WARMUP_DELAY2] Waiting {delay2:.2f}s before keyword search requests...")
+    time.sleep(delay2)
+    
+    logger.info("✅ Session warm-up complete, ready for keyword requests")
 
 
 # ==================== PHASE 1A: SEARCH ====================
