@@ -1,8 +1,10 @@
 # phase1_search_fetch.py - Phase 1a (Search) and 1b (Fetch GraphQL)
+# Human-like request pacing with Cloudflare recovery strategy
 
 from curl_cffi.requests import Session
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlencode
+from random import uniform
 import time
 import json
 
@@ -11,6 +13,102 @@ from config import (
     KICKSTARTER_CSRF_TOKEN, KICKSTARTER_COOKIES,
     BASE_URL, GRAPHQL_URL
 )
+
+
+# ==================== HELPER FUNCTIONS ====================
+
+def get_randomized_delay(base_delay, max_jitter=4):
+    """Generate human-like randomized delay with jitter
+    
+    Args:
+        base_delay: Base delay in seconds
+        max_jitter: Max additional random jitter (0 to max_jitter)
+    
+    Returns:
+        float: Total delay time
+    """
+    return uniform(base_delay, base_delay + max_jitter)
+
+
+def get_exponential_backoff_with_jitter(retry_attempt):
+    """Calculate exponential backoff with randomized jitter for Cloudflare retries
+    
+    Retry 1: 8-15s (short cooldown)
+    Retry 2: 20-40s (larger cooldown)
+    Retry 3: 45-90s (aggressive cooldown)
+    
+    Args:
+        retry_attempt: 0-indexed retry attempt (0, 1, 2)
+    
+    Returns:
+        float: Wait time in seconds
+    """
+    if retry_attempt == 0:
+        # Retry 1: 8-15s
+        return uniform(8, 15)
+    elif retry_attempt == 1:
+        # Retry 2: 20-40s
+        return uniform(20, 40)
+    else:
+        # Retry 3: 45-90s
+        return uniform(45, 90)
+
+
+def is_cloudflare_blocked(response_text, status_code):
+    """Detect Cloudflare challenge or 403 block
+    
+    Args:
+        response_text: Response HTML/text body
+        status_code: HTTP status code
+    
+    Returns:
+        bool: True if Cloudflare block detected
+    """
+    # Check for 403 Forbidden
+    if status_code == 403:
+        return True
+    
+    # Check for Cloudflare challenge markers
+    checks = [
+        "Just a moment",
+        "challenge-platform",
+        "cf-browser-verification",
+        "/cdn-cgi/challenge-platform",
+        "Checking your browser before accessing",
+    ]
+    
+    return any(check in response_text for check in checks)
+
+
+def fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2):
+    """Fetch URL with network failure retry logic (separate from Cloudflare)
+    
+    Args:
+        session: curl_cffi Session
+        url: URL to fetch
+        max_retries: Max network retry attempts
+        backoff_factor: Exponential backoff multiplier
+    
+    Returns:
+        Response or None
+    """
+    for attempt in range(max_retries):
+        try:
+            logger.debug(f"[NETWORK_FETCH] Attempt {attempt + 1}/{max_retries}: {url}")
+            response = session.get(url, allow_redirects=True, timeout=30)
+            logger.debug(f"[NETWORK_RESPONSE] Status: {response.status_code}")
+            return response
+        except Exception as e:
+            logger.debug(f"[NETWORK_ERROR] Attempt {attempt + 1} failed: {e}")
+            if attempt < max_retries - 1:
+                wait_time = backoff_factor ** attempt
+                logger.debug(f"[NETWORK_RETRY] Waiting {wait_time}s before retry...")
+                time.sleep(wait_time)
+            else:
+                logger.error(f"[NETWORK_FAILED] All {max_retries} network attempts failed for {url}")
+                raise
+    
+    return None
 
 
 # ==================== PHASE 1A: SEARCH ====================
@@ -29,37 +127,6 @@ def build_discovery_url(keyword, page=1):
 def ts_to_datetime(ts):
     """Convert timestamp to datetime"""
     return datetime.fromtimestamp(ts, tz=timezone.utc)
-
-
-def is_cloudflare_blocked(text):
-    """Check if response is blocked by Cloudflare"""
-    checks = [
-        "Just a moment",
-        "challenge-platform",
-        "cf-browser-verification",
-        "/cdn-cgi/challenge-platform",
-    ]
-    return any(c in text for c in checks)
-
-
-def fetch_with_retry(session, url, max_retries=3, backoff_factor=2):
-    """Fetch URL with retry logic and exponential backoff"""
-    for attempt in range(max_retries):
-        try:
-            logger.debug(f"[FETCH] Attempt {attempt + 1}/{max_retries}: {url}")
-            response = session.get(url, allow_redirects=True)
-            logger.debug(f"[RESPONSE] Status: {response.status_code}")
-            return response
-        except Exception as e:
-            logger.debug(f"[ERROR] Attempt {attempt + 1} failed: {e}")
-            if attempt < max_retries - 1:
-                wait_time = (backoff_factor ** attempt)
-                logger.debug(f"[RETRY] Waiting {wait_time}s before retry...")
-                time.sleep(wait_time)
-            else:
-                logger.error(f"[FAILED] All {max_retries} attempts failed for {url}")
-                raise
-    return None
 
 
 def extract_discovery_project(project):
@@ -110,7 +177,7 @@ def extract_discovery_project(project):
 
 
 def search_phase():
-    """Phase 1a: Search for projects across all keywords"""
+    """Phase 1a: Search for projects across all keywords with Cloudflare handling"""
     logger.info("\n📍 PHASE 1a: SEARCH")
     logger.info("-" * 80)
     
@@ -142,50 +209,107 @@ def search_phase():
                 break
             
             url = build_discovery_url(keyword, page)
+            cloudflare_retry_count = 0
+            max_cloudflare_retries = 3
             
-            try:
-                response = fetch_with_retry(session, url)
-                logger.info(f"   Page {page}/{MAX_PAGES} - Status: {response.status_code}")
-                
-                if is_cloudflare_blocked(response.text):
-                    logger.error(f"   ⚠️  Cloudflare challenge detected")
-                    break
-                
-                data = response.json()
-                projects = data.get("projects", [])
-                logger.info(f"   Found: {len(projects)} projects")
-                
-                if not projects:
-                    break
-                
-                for project in projects:
-                    project_id = project.get("id")
-                    if project_id in seen_ids:
+            # ==================== CLOUDFLARE RETRY LOOP ====================
+            while cloudflare_retry_count <= max_cloudflare_retries:
+                try:
+                    # Fetch with network retry (separate from Cloudflare retry)
+                    response = fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2)
+                    
+                    logger.info(f"   Page {page}/{MAX_PAGES} - Status: {response.status_code}")
+                    
+                    # Check for Cloudflare block
+                    if is_cloudflare_blocked(response.text, response.status_code):
+                        cloudflare_retry_count += 1
+                        
+                        if cloudflare_retry_count > max_cloudflare_retries:
+                            # Max Cloudflare retries exceeded for this keyword
+                            logger.error(
+                                f"   ❌ Cloudflare block: Max {max_cloudflare_retries} retries exceeded for '{keyword}'"
+                            )
+                            logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
+                            stop_keyword = True
+                            break
+                        
+                        # Calculate exponential backoff with jitter
+                        wait_time = get_exponential_backoff_with_jitter(cloudflare_retry_count - 1)
+                        logger.warning(
+                            f"   ⚠️  Cloudflare challenge detected (attempt {cloudflare_retry_count}/{max_cloudflare_retries})"
+                        )
+                        logger.info(f"   💤 Cooling down for {wait_time:.1f}s before retry...")
+                        time.sleep(wait_time)
+                        
+                        # Retry same page
                         continue
                     
-                    launched_at = project.get("launched_at")
-                    if not launched_at:
-                        continue
-                    
-                    launched_dt = ts_to_datetime(launched_at)
-                    
-                    if launched_dt < from_date:
-                        logger.info(f"   ⏸️  Reached older projects, stopping")
-                        stop_keyword = True
+                    # Success: Parse JSON
+                    try:
+                        data = response.json()
+                        projects = data.get("projects", [])
+                        logger.info(f"   ✅ Success: Found {len(projects)} projects")
+                        
+                        if not projects:
+                            break
+                        
+                        # Process projects
+                        for project in projects:
+                            project_id = project.get("id")
+                            if project_id in seen_ids:
+                                continue
+                            
+                            launched_at = project.get("launched_at")
+                            if not launched_at:
+                                continue
+                            
+                            launched_dt = ts_to_datetime(launched_at)
+                            
+                            if launched_dt < from_date:
+                                logger.info(f"   ⏸️  Reached older projects, stopping")
+                                stop_keyword = True
+                                break
+                            
+                            item = extract_discovery_project(project)
+                            all_projects.append(item)
+                            seen_ids.add(project_id)
+                            logger.info(f"   ✅ {item['project_name'][:50]}... | {item['backers_count']} backers")
+                        
+                        # Exit Cloudflare retry loop on success
                         break
                     
-                    item = extract_discovery_project(project)
-                    all_projects.append(item)
-                    seen_ids.add(project_id)
-                    logger.info(f"   ✅ {item['project_name'][:50]}... | {item['backers_count']} backers")
+                    except json.JSONDecodeError as e:
+                        # Could be HTML error page (Cloudflare block before JSON parsing)
+                        logger.error(f"   ❌ JSON parse failed: {e}")
+                        logger.warning(f"   ⚠️  Possible Cloudflare block (no valid JSON)")
+                        
+                        cloudflare_retry_count += 1
+                        
+                        if cloudflare_retry_count > max_cloudflare_retries:
+                            logger.error(
+                                f"   ❌ Cloudflare block: Max {max_cloudflare_retries} retries exceeded for '{keyword}'"
+                            )
+                            logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
+                            stop_keyword = True
+                            break
+                        
+                        wait_time = get_exponential_backoff_with_jitter(cloudflare_retry_count - 1)
+                        logger.info(f"   💤 Cooling down for {wait_time:.1f}s before retry...")
+                        time.sleep(wait_time)
+                        continue
                 
-                time.sleep(REQUEST_DELAY)
-            
-            except Exception as e:
-                logger.error(f"   ❌ Error: {e}")
-                time.sleep(3)
+                except Exception as e:
+                    # Network error already retried by fetch_with_network_retry
+                    logger.error(f"   ❌ Request failed: {e}")
+                    time.sleep(3)
+                    break
+        
+        # Keyword complete: Apply inter-keyword delay before next keyword
+        delay = get_randomized_delay(REQUEST_DELAY, max_jitter=6)
+        logger.debug(f"[KEYWORD_DELAY] Waiting {delay:.2f}s before next keyword...")
+        time.sleep(delay)
     
-    logger.info(f"\n✅ Search complete: {len(all_projects)} unique projects")
+    logger.info(f"\n✅ Search complete: {len(all_projects)} unique projects discovered")
     return all_projects
 
 
@@ -257,10 +381,11 @@ def fetch_graphql_with_retry(slug, max_retries=3, backoff_factor=2):
                 return data
             else:
                 if attempt < max_retries - 1:
-                    wait_time = (backoff_factor ** attempt)
+                    wait_time = backoff_factor ** attempt
+                    logger.debug(f"[GRAPHQL_RETRY] Waiting {wait_time}s before retry...")
                     time.sleep(wait_time)
         except Exception as e:
-            logger.debug(f"[ERROR] Attempt {attempt + 1}: {e}")
+            logger.debug(f"[GRAPHQL_ERROR] Attempt {attempt + 1}: {e}")
             if attempt < max_retries - 1:
                 time.sleep(backoff_factor ** attempt)
     
