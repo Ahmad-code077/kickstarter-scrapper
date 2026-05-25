@@ -80,12 +80,13 @@ def is_cloudflare_blocked(response_text, status_code):
     return any(check in response_text for check in checks)
 
 
-def fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2):
+def fetch_with_network_retry(session, url, headers=None, max_retries=3, backoff_factor=2):
     """Fetch URL with network failure retry logic (separate from Cloudflare)
     
     Args:
         session: curl_cffi Session
         url: URL to fetch
+        headers: Optional headers dict to pass with request
         max_retries: Max network retry attempts
         backoff_factor: Exponential backoff multiplier
     
@@ -95,7 +96,7 @@ def fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2):
     for attempt in range(max_retries):
         try:
             logger.debug(f"[NETWORK_FETCH] Attempt {attempt + 1}/{max_retries}: {url}")
-            response = session.get(url, allow_redirects=True, timeout=30)
+            response = session.get(url, headers=headers, allow_redirects=True, timeout=30)
             logger.debug(f"[NETWORK_RESPONSE] Status: {response.status_code}")
             return response
         except Exception as e:
@@ -111,31 +112,32 @@ def fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2):
     return None
 
 
-def warm_up_session(session):
+def warm_up_session(session, document_headers):
     """Warm up session with multi-step browsing before keyword requests
     
     Flow:
-    1. Visit homepage (https://www.kickstarter.com/)
+    1. Visit homepage (https://www.kickstarter.com/) with document headers
     2. Wait 3-6 seconds (human-like delay)
-    3. Visit discovery page (https://www.kickstarter.com/discover/advanced)
+    3. Visit discovery page (https://www.kickstarter.com/discover/advanced) with document headers
     4. Wait 5-10 seconds (pre-search delay)
-    5. Ready for keyword requests
+    5. Ready for keyword requests (will use API headers)
     
     Purpose:
     - Establish Cloudflare cookies to avoid 403 on first keyword request
-    - Simulate realistic human browsing behavior
+    - Simulate realistic human browsing behavior (document requests, not API calls)
     - Build request history in session
     
     Args:
         session: curl_cffi Session
+        document_headers: Headers for normal document requests (not API calls)
     """
     logger.info("🔥 Warming up session with multi-step browsing...")
     
-    # Step 1: Visit homepage
+    # Step 1: Visit homepage with document headers
     homepage_url = "https://www.kickstarter.com/"
     try:
         logger.debug(f"[WARMUP_STEP1] Visiting: {homepage_url}")
-        response = session.get(homepage_url, allow_redirects=True, timeout=30)
+        response = session.get(homepage_url, headers=document_headers, allow_redirects=True, timeout=30)
         logger.debug(f"[WARMUP_STEP1] Status: {response.status_code}")
         if response.status_code == 200:
             logger.info("  ✅ Homepage loaded")
@@ -149,11 +151,11 @@ def warm_up_session(session):
     logger.debug(f"[WARMUP_DELAY1] Waiting {delay1:.2f}s before discovery page...")
     time.sleep(delay1)
     
-    # Step 3: Visit discovery page
+    # Step 3: Visit discovery page with document headers
     discovery_url = "https://www.kickstarter.com/discover/advanced"
     try:
         logger.debug(f"[WARMUP_STEP2] Visiting: {discovery_url}")
-        response = session.get(discovery_url, allow_redirects=True, timeout=30)
+        response = session.get(discovery_url, headers=document_headers, allow_redirects=True, timeout=30)
         logger.debug(f"[WARMUP_STEP2] Status: {response.status_code}")
         if response.status_code == 200:
             logger.info("  ✅ Discovery page loaded")
@@ -240,25 +242,30 @@ def search_phase():
     logger.info("\n📍 PHASE 1a: SEARCH")
     logger.info("-" * 80)
     
-    headers = {
+    # Document headers: for normal browser page requests (warmup)
+    document_headers = {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "referer": "https://www.kickstarter.com/",
+    }
+    
+    # API/AJAX headers: for keyword discovery search requests
+    api_headers = {
         "accept": "application/json, text/javascript, */*; q=0.01",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
         "x-requested-with": "XMLHttpRequest",
         "referer": "https://www.kickstarter.com/discover/advanced",
-        "user-agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/136.0.0.0 Safari/537.36"
-        ),
     }
     
-    session = Session(impersonate="chrome136", headers=headers, timeout=30)
+    # Create session without global headers, let curl_cffi impersonate chrome
+    # Headers will be passed per-request for flexibility
+    session = Session(impersonate="chrome", timeout=30)
     all_projects = []
     seen_ids = set()
     
     # ==================== WARM UP SESSION ====================
     # Establish Cloudflare cookies before first keyword request
-    warm_up_session(session)
+    warm_up_session(session, document_headers)
     logger.info("-" * 80)
     
     utc_now = datetime.now(timezone.utc)
@@ -280,7 +287,8 @@ def search_phase():
             while cloudflare_retry_count <= max_cloudflare_retries:
                 try:
                     # Fetch with network retry (separate from Cloudflare retry)
-                    response = fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2)
+                    # Pass API headers for keyword search requests
+                    response = fetch_with_network_retry(session, url, headers=api_headers, max_retries=3, backoff_factor=2)
                     
                     logger.info(f"   Page {page}/{MAX_PAGES} - Status: {response.status_code}")
                     
@@ -420,7 +428,6 @@ def fetch_graphql_with_retry(slug, max_retries=3, backoff_factor=2):
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-origin",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
         "x-csrf-token": KICKSTARTER_CSRF_TOKEN,
         "cookie": KICKSTARTER_COOKIES,
     }
@@ -430,12 +437,12 @@ def fetch_graphql_with_retry(slug, max_retries=3, backoff_factor=2):
         "variables": {"slug": slug}
     }
     
-    session = Session(impersonate="chrome", headers=headers, timeout=30)
+    session = Session(impersonate="chrome", timeout=30)
     
     for attempt in range(max_retries):
         try:
             logger.debug(f"[GRAPHQL] Attempt {attempt + 1}/{max_retries}: {slug}")
-            response = session.post(GRAPHQL_URL, json=payload, allow_redirects=True)
+            response = session.post(GRAPHQL_URL, json=payload, headers=headers, allow_redirects=True)
             
             if response.status_code == 200:
                 data = response.json()
