@@ -13,6 +13,9 @@ from phase2_clickup import fetch_brand_voice, fetch_extraction_sop
 from phase3_llm import phase_3_llm_scoring
 from phase4_supabase import upsert_to_supabase
 
+# Import alerting
+from alerts import send_pipeline_crash_alert
+
 
 # =========================
 # MAIN ORCHESTRATION
@@ -63,7 +66,8 @@ def main():
         logger.info("=" * 80)
     
     except Exception as e:
-        logger.error(f"❌ Fatal error: {e}")
+        logger.error(f"❌ Fatal error: {e}")        # Send ClickUp alert for pipeline crash
+        send_pipeline_crash_alert(str(e))        
         raise
 
 

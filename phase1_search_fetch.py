@@ -13,6 +13,11 @@ from config import (
     KICKSTARTER_CSRF_TOKEN, KICKSTARTER_COOKIES,
     BASE_URL, GRAPHQL_URL
 )
+from alerts import send_cloudflare_alert
+
+
+# Module-level flag to send only one Cloudflare alert per run
+cloudflare_alert_sent = False
 
 
 # ==================== HELPER FUNCTIONS ====================
@@ -302,6 +307,13 @@ def search_phase():
                                 f"   ❌ Cloudflare block: Max {max_cloudflare_retries} retries exceeded for '{keyword}'"
                             )
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
+                            
+                            # Send ClickUp alert (only once per run)
+                            global cloudflare_alert_sent
+                            if not cloudflare_alert_sent:
+                                send_cloudflare_alert(keyword, page, max_cloudflare_retries)
+                                cloudflare_alert_sent = True
+                            
                             stop_keyword = True
                             break
                         
@@ -362,6 +374,13 @@ def search_phase():
                                 f"   ❌ Cloudflare block: Max {max_cloudflare_retries} retries exceeded for '{keyword}'"
                             )
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
+                            
+                            # Send ClickUp alert (only once per run)
+                            global cloudflare_alert_sent
+                            if not cloudflare_alert_sent:
+                                send_cloudflare_alert(keyword, page, max_cloudflare_retries)
+                                cloudflare_alert_sent = True
+                            
                             stop_keyword = True
                             break
                         
