@@ -111,6 +111,40 @@ def fetch_with_network_retry(session, url, max_retries=3, backoff_factor=2):
     return None
 
 
+def warm_up_session(session):
+    """Warm up session by visiting discover/advanced page before keyword requests
+    
+    Purpose:
+    - Establish Cloudflare cookies to avoid 403 on first keyword request
+    - Simulate human browsing behavior
+    - Let curl_cffi session settle
+    
+    Args:
+        session: curl_cffi Session
+    """
+    logger.info("🔥 Warming up session...")
+    
+    warmup_url = "https://www.kickstarter.com/discover/advanced"
+    
+    try:
+        logger.debug(f"[WARMUP] Visiting: {warmup_url}")
+        response = session.get(warmup_url, allow_redirects=True, timeout=30)
+        logger.debug(f"[WARMUP] Status: {response.status_code}")
+        
+        if response.status_code == 200:
+            logger.info("✅ Session warm-up successful, established Cloudflare cookies")
+        else:
+            logger.warning(f"⚠️  Session warm-up returned status {response.status_code}")
+    
+    except Exception as e:
+        logger.warning(f"⚠️  Session warm-up failed: {e}")
+    
+    # Always apply human-like delay after warm-up
+    delay = uniform(3, 8)
+    logger.debug(f"[WARMUP_DELAY] Waiting {delay:.2f}s before keyword requests...")
+    time.sleep(delay)
+
+
 # ==================== PHASE 1A: SEARCH ====================
 
 def build_discovery_url(keyword, page=1):
@@ -196,6 +230,11 @@ def search_phase():
     session = Session(impersonate="chrome136", headers=headers, timeout=30)
     all_projects = []
     seen_ids = set()
+    
+    # ==================== WARM UP SESSION ====================
+    # Establish Cloudflare cookies before first keyword request
+    warm_up_session(session)
+    logger.info("-" * 80)
     
     utc_now = datetime.now(timezone.utc)
     from_date = utc_now - timedelta(days=DAYS_BACK)

@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 import os
 import sys
 import logging
+from datetime import datetime, timedelta
+import glob
 from supabase import create_client
 
 # =========================
@@ -17,16 +19,58 @@ load_dotenv()
 # =========================
 
 def setup_logging(log_level):
-    """Configure logging with INFO and DEBUG levels"""
+    """Configure logging with console and file handlers"""
     log_format = "%(asctime)s - [%(levelname)s] - %(message)s"
     date_format = "%Y-%m-%d %H:%M:%S"
     
-    logging.basicConfig(
-        level=getattr(logging, log_level.upper(), logging.INFO),
-        format=log_format,
-        datefmt=date_format
-    )
-    return logging.getLogger(__name__)
+    logger = logging.getLogger(__name__)
+    logger.setLevel(getattr(logging, log_level.upper(), logging.INFO))
+    
+    # Remove existing handlers to avoid duplicates
+    logger.handlers = []
+    
+    # Console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter(log_format, datefmt=date_format))
+    logger.addHandler(console_handler)
+    
+    # File handler (create logs/ directory if not exists)
+    logs_dir = "logs"
+    if not os.path.exists(logs_dir):
+        os.makedirs(logs_dir)
+    
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H%M")
+    log_file = os.path.join(logs_dir, f"kickstarter-monitor-{timestamp}.log")
+    
+    file_handler = logging.FileHandler(log_file, encoding="utf-8")
+    file_handler.setFormatter(logging.Formatter(log_format, datefmt=date_format))
+    logger.addHandler(file_handler)
+    
+    return logger, log_file
+
+
+def cleanup_old_logs(retention_days):
+    """Delete log files older than retention_days"""
+    logs_dir = "logs"
+    if not os.path.exists(logs_dir):
+        return
+    
+    cutoff_date = datetime.now() - timedelta(days=retention_days)
+    deleted_count = 0
+    
+    for log_file in glob.glob(os.path.join(logs_dir, "kickstarter-monitor-*.log")):
+        file_mtime = datetime.fromtimestamp(os.path.getmtime(log_file))
+        
+        if file_mtime < cutoff_date:
+            try:
+                os.remove(log_file)
+                print(f"🗑️  Deleted old log: {os.path.basename(log_file)}")
+                deleted_count += 1
+            except Exception as e:
+                print(f"⚠️  Failed to delete {os.path.basename(log_file)}: {e}")
+    
+    if deleted_count > 0:
+        print(f"🧹 Cleanup complete: Deleted {deleted_count} log files older than {retention_days} days")
 
 
 def get_env(var_name, default=None, required=False):
@@ -42,11 +86,17 @@ def get_env(var_name, default=None, required=False):
 
 
 # =========================
-# INITIALIZE LOGGER
+# INITIALIZE LOGGER & CLEANUP
 # =========================
 
 LOG_LEVEL = get_env("LOG_LEVEL", "INFO")
-logger = setup_logging(LOG_LEVEL)
+LOG_RETENTION_DAYS = int(get_env("LOG_RETENTION_DAYS", "30"))
+
+# Cleanup old logs before setup
+cleanup_old_logs(LOG_RETENTION_DAYS)
+
+# Setup logger with file and console handlers
+logger, current_log_file = setup_logging(LOG_LEVEL)
 
 
 # =========================
@@ -112,4 +162,6 @@ logger.info("=" * 80)
 logger.info(f"📌 Keywords: {', '.join(KEYWORDS)}")
 logger.info(f"📅 Days back: {DAYS_BACK}")
 logger.info(f"📊 Log level: {LOG_LEVEL}")
+logger.info(f"📁 Log file: {current_log_file}")
+logger.info(f"🧹 Log retention: {LOG_RETENTION_DAYS} days")
 logger.info("=" * 80)
