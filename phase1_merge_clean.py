@@ -108,8 +108,13 @@ def merge_and_flatten(discovery, graphql_data):
     return merged
 
 
-def phase_1_search_fetch_merge_clean(discovered_projects):
-    """Phase 1b & 1c: Fetch details and merge for all projects"""
+def phase_1_search_fetch_merge_clean(discovered_projects, session=None):
+    """Phase 1b & 1c: Fetch details and merge for all projects
+    
+    Args:
+        discovered_projects: List of projects from search phase
+        session: Optional curl_cffi Session to reuse warmed Kickstarter session
+    """
     logger.info("\n📍 PHASE 1b & 1c: FETCH GRAPHQL & MERGE & CLEAN")
     logger.info("-" * 80)
     
@@ -123,7 +128,7 @@ def phase_1_search_fetch_merge_clean(discovered_projects):
         logger.info(f"[{idx}/{len(discovered_projects)}] {project.get('project_name')[:50]}...")
         
         try:
-            graphql_response = fetch_graphql_with_retry(slug)
+            graphql_response = fetch_graphql_with_retry(slug, session=session)
             
             if graphql_response:
                 merged = merge_and_flatten(project, graphql_response)

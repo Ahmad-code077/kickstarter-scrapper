@@ -7,6 +7,7 @@ import json
 from config import logger
 
 # Import phase functions
+import phase1_search_fetch
 from phase1_search_fetch import search_phase
 from phase1_merge_clean import phase_1_search_fetch_merge_clean
 from phase2_clickup import fetch_brand_voice, fetch_extraction_sop
@@ -32,7 +33,7 @@ def main():
             return
         
         # Phase 1b & 1c: Fetch, Merge, Clean
-        all_merged = phase_1_search_fetch_merge_clean(discovered)
+        all_merged = phase_1_search_fetch_merge_clean(discovered, session=phase1_search_fetch._warmed_kickstarter_session)
         
         if not all_merged:
             logger.error("❌ No projects merged, stopping")

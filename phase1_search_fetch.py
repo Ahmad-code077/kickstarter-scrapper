@@ -19,6 +19,9 @@ from alerts import send_cloudflare_alert
 # Module-level flag to send only one Cloudflare alert per run
 cloudflare_alert_sent = False
 
+# Module-level variable to store warmed Kickstarter session for reuse across phases
+_warmed_kickstarter_session = None
+
 
 # ==================== HELPER FUNCTIONS ====================
 
@@ -244,7 +247,7 @@ def extract_discovery_project(project):
 
 def search_phase():
     """Phase 1a: Search for projects across all keywords with Cloudflare handling"""
-    global cloudflare_alert_sent
+    global cloudflare_alert_sent, _warmed_kickstarter_session
     
     logger.info("\n📍 PHASE 1a: SEARCH")
     logger.info("-" * 80)
@@ -274,6 +277,10 @@ def search_phase():
     # Establish Cloudflare cookies before first keyword request
     warm_up_session(session, document_headers)
     logger.info("-" * 80)
+    
+    # Store warmed session for reuse by GraphQL fetching
+    _warmed_kickstarter_session = session
+    logger.debug("[SESSION] Warmed session stored for GraphQL reuse")
     
     utc_now = datetime.now(timezone.utc)
     from_date = utc_now - timedelta(days=DAYS_BACK)
@@ -433,13 +440,28 @@ query GetCompleteProjectData($slug: String!) {
 """
 
 
-def fetch_graphql_with_retry(slug, max_retries=3, backoff_factor=2):
-    """Fetch GraphQL with retry logic"""
-    if not KICKSTARTER_CSRF_TOKEN or not KICKSTARTER_COOKIES:
-        logger.error("Cannot fetch GraphQL: CSRF_TOKEN and COOKIES must be set in .env")
-        return None
+def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2):
+    """Fetch GraphQL with retry logic using warmed session + Cloudflare handling
     
-    headers = {
+    Args:
+        slug: Project slug (creator_id/project_slug)
+        session: curl_cffi Session (reuses warmed session if provided)
+        max_retries: Max Cloudflare retry attempts
+        backoff_factor: Exponential backoff multiplier
+    
+    Returns:
+        dict: GraphQL response data or None if failed
+    """
+    global _warmed_kickstarter_session
+    
+    # Always create a FRESH session for GraphQL (not reusing warmed session)
+    # This prevents old cookies from search phase interfering
+    # Fresh CSRF + cookies will be passed as headers from .env
+    logger.debug(f"[GRAPHQL] Creating fresh session for {slug} (headers will use .env credentials)")
+    session = Session(impersonate="chrome", timeout=30)
+    
+    # GraphQL request headers (no User-Agent, let curl_cffi handle it)
+    graphql_headers = {
         "accept": "*/*",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
         "content-type": "application/json",
@@ -447,36 +469,73 @@ def fetch_graphql_with_retry(slug, max_retries=3, backoff_factor=2):
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-origin",
-        "x-csrf-token": KICKSTARTER_CSRF_TOKEN,
-        "cookie": KICKSTARTER_COOKIES,
     }
+    
+    # Add CSRF token if available from .env (fallback)
+    if KICKSTARTER_CSRF_TOKEN:
+        graphql_headers["x-csrf-token"] = KICKSTARTER_CSRF_TOKEN
+    
+    # Add cookies if available from .env (fallback)
+    if KICKSTARTER_COOKIES:
+        graphql_headers["cookie"] = KICKSTARTER_COOKIES
+    
+    # Debug: Log what credentials are being used
+    csrf_preview = KICKSTARTER_CSRF_TOKEN[:20] if KICKSTARTER_CSRF_TOKEN else "NONE"
+    cookies_preview = KICKSTARTER_COOKIES[:50] if KICKSTARTER_COOKIES else "NONE"
+    logger.debug(f"[GRAPHQL_HEADERS] CSRF: {csrf_preview}... | Cookies: {cookies_preview}...")
     
     payload = {
         "query": GRAPHQL_QUERY,
         "variables": {"slug": slug}
     }
     
-    session = Session(impersonate="chrome", timeout=30)
+    cloudflare_retry_count = 0
+    max_cloudflare_retries = 3
     
-    for attempt in range(max_retries):
+    # ==================== CLOUDFLARE RETRY LOOP ====================
+    while cloudflare_retry_count <= max_cloudflare_retries:
         try:
-            logger.debug(f"[GRAPHQL] Attempt {attempt + 1}/{max_retries}: {slug}")
-            response = session.post(GRAPHQL_URL, json=payload, headers=headers, allow_redirects=True)
+            # Step 1: For fresh sessions, skip project page pre-visit
+            # Just go directly to GraphQL with fresh CSRF+cookies headers
+            # (The test file that works doesn't visit project page first)
             
+            # Step 2: Fetch GraphQL
+            logger.debug(f"[GRAPHQL] Attempt {cloudflare_retry_count + 1}/{max_cloudflare_retries + 1}: {slug}")
+            response = session.post(GRAPHQL_URL, json=payload, headers=graphql_headers, allow_redirects=True, timeout=30)
+            
+            logger.debug(f"[GRAPHQL_RESPONSE] Status: {response.status_code}, Body (first 200 chars): {response.text[:200]}")
+            
+            # Check for Cloudflare block (403 or specific markers)
+            if is_cloudflare_blocked(response.text, response.status_code):
+                cloudflare_retry_count += 1
+                
+                if cloudflare_retry_count > max_cloudflare_retries:
+                    # Max retries exceeded
+                    logger.error(f"[GRAPHQL_BLOCKED] Max {max_cloudflare_retries} retries exceeded for {slug}")
+                    return None
+                
+                # Calculate exponential backoff with jitter
+                wait_time = get_exponential_backoff_with_jitter(cloudflare_retry_count - 1)
+                logger.warning(f"[GRAPHQL_BLOCKED] Cloudflare block detected (attempt {cloudflare_retry_count}/{max_cloudflare_retries})")
+                logger.info(f"[GRAPHQL_RETRY] Cooling down for {wait_time:.1f}s before retry...")
+                time.sleep(wait_time)
+                continue
+            
+            # Success: Parse response
             if response.status_code == 200:
                 data = response.json()
                 if "errors" in data:
-                    logger.error(f"[GRAPHQL ERROR] {data['errors']}")
-                    raise Exception(f"GraphQL error")
+                    logger.error(f"[GRAPHQL_ERROR] GraphQL errors in response: {data['errors']}")
+                    return None
+                logger.debug(f"[GRAPHQL_SUCCESS] Fetched data for {slug}")
                 return data
             else:
-                if attempt < max_retries - 1:
-                    wait_time = backoff_factor ** attempt
-                    logger.debug(f"[GRAPHQL_RETRY] Waiting {wait_time}s before retry...")
-                    time.sleep(wait_time)
+                logger.warning(f"[GRAPHQL_FAILED] Status={response.status_code}, Body={response.text[:200]}")
+                return None
+        
         except Exception as e:
-            logger.debug(f"[GRAPHQL_ERROR] Attempt {attempt + 1}: {e}")
-            if attempt < max_retries - 1:
-                time.sleep(backoff_factor ** attempt)
+            logger.error(f"[GRAPHQL_ERROR] Attempt {cloudflare_retry_count + 1}: {e}")
+            return None
     
+    logger.error(f"[GRAPHQL_FAILED] All attempts exhausted for {slug}")
     return None
