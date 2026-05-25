@@ -113,8 +113,8 @@ if not KEYWORDS:
 DAYS_BACK = int(get_env("KICKSTARTER_DAYS_BACK", "14"))
 MAX_PAGES = int(get_env("KICKSTARTER_MAX_PAGES", "10"))
 REQUEST_DELAY = float(get_env("KICKSTARTER_REQUEST_DELAY", "1"))
-KICKSTARTER_CSRF_TOKEN = get_env("KICKSTARTER_CSRF_TOKEN", required=False)
-KICKSTARTER_COOKIES = get_env("KICKSTARTER_COOKIE_STRING", required=False)
+# Note: CSRF token is now extracted from project page HTML, not from .env
+# Cookies are handled automatically by curl_cffi.Session
 
 BASE_URL = "https://www.kickstarter.com/discover/advanced"
 GRAPHQL_URL = "https://www.kickstarter.com/graph"

@@ -7,10 +7,10 @@ from urllib.parse import urlencode
 from random import uniform
 import time
 import json
+import re
 
 from config import (
     logger, KEYWORDS, DAYS_BACK, MAX_PAGES, REQUEST_DELAY,
-    KICKSTARTER_CSRF_TOKEN, KICKSTARTER_COOKIES,
     BASE_URL, GRAPHQL_URL
 )
 from alerts import send_cloudflare_alert
@@ -86,6 +86,27 @@ def is_cloudflare_blocked(response_text, status_code):
     ]
     
     return any(check in response_text for check in checks)
+
+
+def extract_csrf_from_html(html_content):
+    """Extract CSRF token from Kickstarter project page HTML
+    
+    Looks for: <meta name="csrf-token" content="TOKEN_VALUE">
+    
+    Args:
+        html_content: HTML response body
+    
+    Returns:
+        str: CSRF token or None if not found
+    """
+    match = re.search(r'<meta name=["\']csrf-token["\'] content=["\']([^"\']+)["\']', html_content)
+    if match:
+        token = match.group(1)
+        logger.debug(f"[CSRF_EXTRACT] Found CSRF token: {token[:20]}...")
+        return token
+    
+    logger.warning("[CSRF_EXTRACT] Could not find CSRF token in HTML")
+    return None
 
 
 def fetch_with_network_retry(session, url, headers=None, max_retries=3, backoff_factor=2):
@@ -441,48 +462,25 @@ query GetCompleteProjectData($slug: String!) {
 
 
 def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2):
-    """Fetch GraphQL with retry logic using warmed session + Cloudflare handling
+    """Fetch GraphQL with automatic cookie handling and fresh CSRF extraction
+    
+    Uses one persistent session to automatically collect/resend Set-Cookie values.
+    Extracts fresh CSRF token from project page HTML on each attempt.
     
     Args:
         slug: Project slug (creator_id/project_slug)
-        session: curl_cffi Session (reuses warmed session if provided)
+        session: curl_cffi Session (REQUIRED - reuses warmed session from Phase 1a)
         max_retries: Max Cloudflare retry attempts
         backoff_factor: Exponential backoff multiplier
     
     Returns:
         dict: GraphQL response data or None if failed
     """
-    global _warmed_kickstarter_session
+    if session is None:
+        logger.error("[GRAPHQL] ERROR: session is required (must pass warmed session from Phase 1a)")
+        return None
     
-    # Always create a FRESH session for GraphQL (not reusing warmed session)
-    # This prevents old cookies from search phase interfering
-    # Fresh CSRF + cookies will be passed as headers from .env
-    logger.debug(f"[GRAPHQL] Creating fresh session for {slug} (headers will use .env credentials)")
-    session = Session(impersonate="chrome", timeout=30)
-    
-    # GraphQL request headers (no User-Agent, let curl_cffi handle it)
-    graphql_headers = {
-        "accept": "*/*",
-        "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-        "content-type": "application/json",
-        "origin": "https://www.kickstarter.com",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-origin",
-    }
-    
-    # Add CSRF token if available from .env (fallback)
-    if KICKSTARTER_CSRF_TOKEN:
-        graphql_headers["x-csrf-token"] = KICKSTARTER_CSRF_TOKEN
-    
-    # Add cookies if available from .env (fallback)
-    if KICKSTARTER_COOKIES:
-        graphql_headers["cookie"] = KICKSTARTER_COOKIES
-    
-    # Debug: Log what credentials are being used
-    csrf_preview = KICKSTARTER_CSRF_TOKEN[:20] if KICKSTARTER_CSRF_TOKEN else "NONE"
-    cookies_preview = KICKSTARTER_COOKIES[:50] if KICKSTARTER_COOKIES else "NONE"
-    logger.debug(f"[GRAPHQL_HEADERS] CSRF: {csrf_preview}... | Cookies: {cookies_preview}...")
+    logger.debug(f"[GRAPHQL] Using persistent session for {slug} (automatic cookie handling)")
     
     payload = {
         "query": GRAPHQL_QUERY,
@@ -491,19 +489,52 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
     
     cloudflare_retry_count = 0
     max_cloudflare_retries = 3
+    project_url = f"https://www.kickstarter.com/projects/{slug}"
     
     # ==================== CLOUDFLARE RETRY LOOP ====================
     while cloudflare_retry_count <= max_cloudflare_retries:
         try:
-            # Step 1: For fresh sessions, skip project page pre-visit
-            # Just go directly to GraphQL with fresh CSRF+cookies headers
-            # (The test file that works doesn't visit project page first)
+            # Step 1: Visit project page to:
+            #   a) Let curl_cffi collect fresh Cloudflare cookies
+            #   b) Extract fresh CSRF token from page HTML
+            logger.debug(f"[GRAPHQL_PAGE] Visiting project page: {project_url}")
+            page_response = session.get(
+                project_url,
+                headers={
+                    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+                    "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+                    "referer": "https://www.kickstarter.com/discover/advanced",
+                },
+                allow_redirects=True,
+                timeout=30
+            )
+            logger.debug(f"[GRAPHQL_PAGE] Project page status: {page_response.status_code}")
             
-            # Step 2: Fetch GraphQL
+            # Extract CSRF token from HTML
+            csrf_token = extract_csrf_from_html(page_response.text)
+            if not csrf_token:
+                logger.warning("[GRAPHQL_PAGE] Could not extract CSRF token from project page")
+                return None
+            
+            # Step 2: Prepare GraphQL headers with fresh CSRF
+            # NOTE: curl_cffi automatically includes cookies from session - NO manual Cookie header needed
+            graphql_headers = {
+                "accept": "*/*",
+                "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+                "content-type": "application/json",
+                "origin": "https://www.kickstarter.com",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin",
+                "x-csrf-token": csrf_token,  # Fresh CSRF from HTML
+                # NO "cookie" header - curl_cffi handles automatically!
+            }
+            
+            # Step 3: Fetch GraphQL
             logger.debug(f"[GRAPHQL] Attempt {cloudflare_retry_count + 1}/{max_cloudflare_retries + 1}: {slug}")
             response = session.post(GRAPHQL_URL, json=payload, headers=graphql_headers, allow_redirects=True, timeout=30)
             
-            logger.debug(f"[GRAPHQL_RESPONSE] Status: {response.status_code}, Body (first 200 chars): {response.text[:200]}")
+            logger.debug(f"[GRAPHQL_RESPONSE] Status: {response.status_code}, Body (first 100 chars): {response.text[:100]}")
             
             # Check for Cloudflare block (403 or specific markers)
             if is_cloudflare_blocked(response.text, response.status_code):
@@ -519,7 +550,7 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
                 logger.warning(f"[GRAPHQL_BLOCKED] Cloudflare block detected (attempt {cloudflare_retry_count}/{max_cloudflare_retries})")
                 logger.info(f"[GRAPHQL_RETRY] Cooling down for {wait_time:.1f}s before retry...")
                 time.sleep(wait_time)
-                continue
+                continue  # Loop back to reload project page and get fresh CSRF/cookies
             
             # Success: Parse response
             if response.status_code == 200:
