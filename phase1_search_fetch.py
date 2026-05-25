@@ -244,6 +244,8 @@ def extract_discovery_project(project):
 
 def search_phase():
     """Phase 1a: Search for projects across all keywords with Cloudflare handling"""
+    global cloudflare_alert_sent
+    
     logger.info("\n📍 PHASE 1a: SEARCH")
     logger.info("-" * 80)
     
@@ -309,7 +311,6 @@ def search_phase():
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
                             
                             # Send ClickUp alert (only once per run)
-                            global cloudflare_alert_sent
                             if not cloudflare_alert_sent:
                                 send_cloudflare_alert(keyword, page, max_cloudflare_retries)
                                 cloudflare_alert_sent = True
@@ -376,7 +377,6 @@ def search_phase():
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
                             
                             # Send ClickUp alert (only once per run)
-                            global cloudflare_alert_sent
                             if not cloudflare_alert_sent:
                                 send_cloudflare_alert(keyword, page, max_cloudflare_retries)
                                 cloudflare_alert_sent = True
