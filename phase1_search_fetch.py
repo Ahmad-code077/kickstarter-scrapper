@@ -448,14 +448,9 @@ def search_phase():
                     time.sleep(3)
                     break
         
-        # After page is processed, check if we should stop this keyword
-        if stop_keyword:
-            logger.info(f"   🛑 Stopped keyword '{keyword}' due to old projects")
-            break
-        
-        # Add inter-page delay (3-7 seconds) before next page request
-        # This simulates human behavior and helps avoid Cloudflare detection
-        if page < MAX_PAGES:  # Only delay if there's another page
+        # Add inter-page delay (3-7 seconds) ONLY if we're continuing to next page
+        # Don't delay if we stopped due to old projects (stop_keyword=True)
+        if not stop_keyword and page < MAX_PAGES:
             inter_page_delay = get_randomized_delay(3, max_jitter=4)
             logger.debug(f"[INTER_PAGE_DELAY] Waiting {inter_page_delay:.2f}s before page {page + 1}...")
             time.sleep(inter_page_delay)
