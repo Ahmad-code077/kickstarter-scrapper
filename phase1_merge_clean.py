@@ -103,10 +103,10 @@ def merge_and_flatten(discovery, graphql_data):
         "location": discovery.get("location"),
         
         # GraphQL fields (only missing ones - NO DUPLICATES)
-        "creator_id": creator.get("id"),
-        "creator_url": creator.get("url", ""),
-        "creator_location": creator.get("location", {}).get("displayableName", ""),
-        "creator_past_campaigns": creator.get("launchedProjects", {}).get("totalCount", 0),        
+        "creator_id": creator.get("id") if creator else None,
+        "creator_url": creator.get("url", "") if creator else "",
+        "creator_location": (creator.get("location") or {}).get("displayableName", "") if creator else "",
+        "creator_past_campaigns": (creator.get("launchedProjects") or {}).get("totalCount", 0) if creator else 0,        
         "story_clean": story_clean,
         "risks": project.get("risks", ""),
         "environmental_commitments": env_commitments_text,
@@ -158,4 +158,10 @@ def phase_1_search_fetch_merge_clean(discovered_projects, session=None):
         time.sleep(1)
     
     logger.info(f"\n✅ Fetch & Merge complete: {len(all_merged)} projects merged, {len(failed)} failed")
-    return all_merged
+    
+    # Return both merged projects and failed list for error tracking
+    return {
+        "merged": all_merged,
+        "failed": failed,
+        "total_attempted": len(discovered_projects)
+    }

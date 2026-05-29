@@ -112,3 +112,50 @@ def send_pipeline_crash_alert(error_message, phase=None):
         message=message,
         error=error_message
     )
+
+
+def send_end_of_run_summary_alert(error_summary):
+    """Send comprehensive error report at end of run
+    
+    Collects ALL errors from the entire run and sends ONE alert
+    with complete picture instead of multiple mid-run alerts.
+    
+    Args:
+        error_summary: dict with keys:
+            - total_errors: int (total error count)
+            - merge_failures: list of (project_id, error_msg)
+            - phases: dict of {phase_name: error_count}
+    
+    Returns:
+        bool: True if sent successfully, False otherwise
+    """
+    if not error_summary or error_summary.get("total_errors", 0) == 0:
+        logger.debug("[ALERT] No errors to report, skipping end-of-run alert")
+        return False
+    
+    total = error_summary.get("total_errors", 0)
+    merge_failures = error_summary.get("merge_failures", [])
+    phases = error_summary.get("phases", {})
+    
+    message = f"End-of-run error summary: **{total} total errors**\n\n"
+    
+    # Add phase breakdowns
+    if phases:
+        message += "**Errors by Phase:**\n"
+        for phase, count in phases.items():
+            message += f"- {phase}: {count} errors\n"
+        message += "\n"
+    
+    # Add merge failures (most common)
+    if merge_failures:
+        message += f"**GraphQL Merge Failures ({len(merge_failures)}):**\n"
+        for project_id, error_msg in merge_failures[:10]:  # Show first 10
+            message += f"- Project {project_id}: {error_msg[:80]}...\n"
+        
+        if len(merge_failures) > 10:
+            message += f"- ... and {len(merge_failures) - 10} more\n"
+    
+    return send_clickup_alert(
+        alert_type="end_of_run_summary",
+        message=message
+    )
