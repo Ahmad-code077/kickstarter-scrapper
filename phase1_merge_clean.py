@@ -1,6 +1,7 @@
 # phase1_merge_clean.py - Phase 1c (Merge & Clean)
 
 from html.parser import HTMLParser
+from random import uniform
 import re
 import time
 
@@ -155,7 +156,10 @@ def phase_1_search_fetch_merge_clean(discovered_projects, session=None):
             logger.error(f"[MERGE_EXCEPTION] Traceback: {traceback.format_exc()}")
             failed.append(project_id)
         
-        time.sleep(1)
+        # Random delay between 1-2 seconds between GraphQL requests
+        graphql_delay = uniform(1, 2)
+        logger.debug(f"[GRAPHQL_DELAY] Waiting {graphql_delay:.2f}s before next GraphQL request...")
+        time.sleep(graphql_delay)
     
     logger.info(f"\n✅ Fetch & Merge complete: {len(all_merged)} projects merged, {len(failed)} failed")
     

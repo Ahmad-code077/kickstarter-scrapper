@@ -2,6 +2,8 @@
 # Entry point: orchestrates Search → Fetch → Merge → Clean → ClickUp → LLM → Supabase
 
 import json
+import os
+from datetime import datetime, timezone
 
 # Import from config (sets up logger and loads environment)
 from config import logger
@@ -19,11 +21,82 @@ from alerts import send_pipeline_crash_alert, send_end_of_run_summary_alert
 
 
 # =========================
+# SCHEDULER FUNCTIONS
+# =========================
+
+def check_scheduler(last_run_file="last_run.txt"):
+    """Check if enough time has passed since last successful run
+    
+    Args:
+        last_run_file: Path to file storing timestamp of last successful run
+    
+    Returns:
+        bool: True if should proceed with scraping, False if should skip
+    """
+    # Check if last_run.txt exists
+    if not os.path.exists(last_run_file):
+        logger.info("[SCHEDULER] No previous run found, proceeding with scraping")
+        return True
+    
+    # Read timestamp from file
+    try:
+        with open(last_run_file, 'r') as f:
+            last_run_timestamp_str = f.read().strip()
+        
+        last_run_dt = datetime.fromisoformat(last_run_timestamp_str)
+        now = datetime.now(timezone.utc)
+        
+        # Calculate days since last run
+        days_since_last_run = (now - last_run_dt.replace(tzinfo=timezone.utc)).days
+        
+        logger.info(f"[SCHEDULER] Last run: {last_run_dt}")
+        logger.info(f"[SCHEDULER] Days since last run: {days_since_last_run}")
+        
+        if days_since_last_run >= 14:
+            logger.info(f"[SCHEDULER] {days_since_last_run} days passed (>= 14), proceeding with scraping")
+            return True
+        else:
+            logger.info(f"[SCHEDULER] Only {days_since_last_run} days passed (< 14), skipping this run")
+            return False
+    
+    except Exception as e:
+        logger.error(f"[SCHEDULER] Error reading {last_run_file}: {e}")
+        logger.warning("[SCHEDULER] Proceeding with scraping due to read error")
+        return True
+
+
+def update_last_run(last_run_file="last_run.txt"):
+    """Update last_run.txt with current timestamp after successful run
+    
+    Args:
+        last_run_file: Path to file storing timestamp of last successful run
+    """
+    try:
+        now = datetime.now(timezone.utc)
+        with open(last_run_file, 'w') as f:
+            f.write(now.isoformat())
+        logger.info(f"[SCHEDULER] Updated {last_run_file} with timestamp: {now.isoformat()}")
+    except Exception as e:
+        logger.error(f"[SCHEDULER] Error writing {last_run_file}: {e}")
+
+
+# =========================
 # MAIN ORCHESTRATION
 # =========================
 
 def main():
     """Main entry point: orchestrate all 4 phases"""
+    # ============ SCHEDULER CHECK ============
+    logger.info("\n" + "="*80)
+    logger.info("STARTING KICKSTARTER MONITOR - SCHEDULER CHECK")
+    logger.info("="*80)
+    
+    if not check_scheduler():
+        logger.info("\n[SCHEDULER] Skipping run - less than 14 days since last successful run")
+        return
+    
+    logger.info("\n[SCHEDULER] Proceeding with scraping...\n")
+    
     # Track all errors throughout run for end-of-run summary alert
     run_errors = {
         "total_errors": 0,
@@ -93,6 +166,11 @@ def main():
         if run_errors["total_errors"] > 0:
             logger.info("[ALERT] Sending end-of-run error summary...")
             send_end_of_run_summary_alert(run_errors)
+        
+        # ============ SCHEDULER UPDATE ============
+        # Only update last_run.txt after successful completion
+        logger.info("\n[SCHEDULER] Scraping completed successfully, updating last_run.txt...")
+        update_last_run()
     
     except Exception as e:
         logger.error(f"❌ Fatal error: {e}")
@@ -101,6 +179,8 @@ def main():
         # Also send error summary if we have partial errors
         if run_errors["total_errors"] > 0:
             send_end_of_run_summary_alert(run_errors)
+        # NOTE: Do NOT update last_run.txt on failure - script will retry on next scheduled run
+        logger.warning("[SCHEDULER] Scraping failed - NOT updating last_run.txt for retry on next run")
         raise
 
 

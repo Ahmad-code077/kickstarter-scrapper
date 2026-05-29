@@ -448,10 +448,10 @@ def search_phase():
                     time.sleep(3)
                     break
         
-        # Add inter-page delay (3-7 seconds) ONLY if we're continuing to next page
+        # Add inter-page delay (5-7 seconds) ONLY if we're continuing to next page
         # Don't delay if we stopped due to old projects (stop_keyword=True)
         if not stop_keyword and page < MAX_PAGES:
-            inter_page_delay = get_randomized_delay(3, max_jitter=4)
+            inter_page_delay = get_randomized_delay(5, max_jitter=2)
             logger.debug(f"[INTER_PAGE_DELAY] Waiting {inter_page_delay:.2f}s before page {page + 1}...")
             time.sleep(inter_page_delay)
         
@@ -562,7 +562,6 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
                 "x-csrf-token": csrf_token,  # Fresh CSRF from HTML
                 # NO "cookie" header - curl_cffi handles automatically!
             }
-            logger.debug(f"[GRAPHQL_HEADERS] CSRF token: {csrf_token[:20]}...")
             logger.debug(f"[GRAPHQL_HEADERS] Session has {len(session.cookies)} cookies")
             
             # Step 3: Fetch GraphQL
@@ -601,7 +600,6 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
                     logger.error(f"[GRAPHQL_ERROR] GraphQL errors in response: {data['errors']}")
                     return None
                 logger.debug(f"[GRAPHQL_SUCCESS] Fetched data for {slug}")
-                logger.debug(f"[GRAPHQL_SUCCESS] Returning data type: {type(data)}, keys: {list(data.keys())}")
                 return data
             else:
                 logger.warning(f"[GRAPHQL_FAILED] Status={response.status_code}, Body={response.text[:200]}")
