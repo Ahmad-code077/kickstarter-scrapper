@@ -1,6 +1,7 @@
 # main.py - Complete Kickstarter Monitor (Phases 1-4)
 # Entry point: orchestrates Search → Fetch → Merge → Clean → ClickUp → LLM → Supabase
 import os
+import shutil
 from datetime import datetime, timezone
 
 # Import from config (sets up logger and loads environment)
@@ -84,6 +85,21 @@ def update_last_run(last_run_file="last_run.txt"):
 
 def main():
     """Main entry point: orchestrate all 4 phases"""
+    # ============ CLEANUP PYCACHE ============
+    logger.info("\n" + "="*80)
+    logger.info("CLEANING UP PYCACHE")
+    logger.info("="*80)
+    
+    try:
+        pycache_path = "__pycache__"
+        if os.path.exists(pycache_path):
+            shutil.rmtree(pycache_path, ignore_errors=True)
+            logger.info(f"✅ Removed {pycache_path} folder")
+        else:
+            logger.info("✅ No pycache folder found to clean")
+    except Exception as e:
+        logger.warning(f"⚠️  Error cleaning pycache: {e}")
+    
     # ============ SCHEDULER CHECK ============
     logger.info("\n" + "="*80)
     logger.info("STARTING KICKSTARTER MONITOR - SCHEDULER CHECK")
