@@ -404,7 +404,7 @@ def search_phase():
                             launched_dt = ts_to_datetime(launched_at)
                             
                             if launched_dt < from_date:
-                                logger.info(f"   ⏸️  Reached older projects, stopping")
+                                logger.info(f"   ⏸️  Project older than {DAYS_BACK} days ({launched_dt.date()}), stopping page iteration")
                                 stop_keyword = True
                                 break
                             
@@ -447,6 +447,18 @@ def search_phase():
                     logger.error(f"   ❌ Request failed: {e}")
                     time.sleep(3)
                     break
+        
+        # After page is processed, check if we should stop this keyword
+        if stop_keyword:
+            logger.info(f"   🛑 Stopped keyword '{keyword}' due to old projects")
+            break
+        
+        # Add inter-page delay (3-7 seconds) before next page request
+        # This simulates human behavior and helps avoid Cloudflare detection
+        if page < MAX_PAGES:  # Only delay if there's another page
+            inter_page_delay = get_randomized_delay(3, max_jitter=4)
+            logger.debug(f"[INTER_PAGE_DELAY] Waiting {inter_page_delay:.2f}s before page {page + 1}...")
+            time.sleep(inter_page_delay)
         
         # Keyword complete: Apply inter-keyword delay before next keyword
         delay = get_randomized_delay(REQUEST_DELAY, max_jitter=6)

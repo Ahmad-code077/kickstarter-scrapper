@@ -38,7 +38,7 @@ def strip_html_tags(html_text):
 
 
 def clean_story_field(story_html):
-    """Clean story: remove HTML, images, scripts, excessive whitespace"""
+    """Clean story: remove HTMLgraphql_response type, images, scripts, excessive whitespace"""
     if not story_html:
         return ""
     
@@ -136,10 +136,7 @@ def phase_1_search_fetch_merge_clean(discovered_projects, session=None):
         logger.info(f"[{idx}/{len(discovered_projects)}] {project.get('project_name')[:50]}...")
         
         try:
-            graphql_response = fetch_graphql_with_retry(slug, session=session)
-            
-            logger.debug(f"[MERGE_DEBUG] graphql_response type: {type(graphql_response)}, value: {graphql_response}")
-            
+            graphql_response = fetch_graphql_with_retry(slug, session=session)            
             if graphql_response:
                 merged = merge_and_flatten(project, graphql_response)
                 if merged:
