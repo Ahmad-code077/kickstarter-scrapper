@@ -79,7 +79,11 @@ def send_clickup_alert(alert_type, message, keyword=None, page=None, error=None)
 
 
 def send_cloudflare_alert(keyword, page, retry_attempt):
-    """Send alert when Cloudflare blocks exhaust retries
+    """DEPRECATED: Cloudflare blocks are now collected and sent in end-of-run summary
+    
+    This function is kept for reference but is no longer called.
+    All Cloudflare failures are now tracked during search_phase() and reported
+    in send_end_of_run_summary_alert() as a single comprehensive alert.
     
     Args:
         keyword: Kickstarter keyword being searched
@@ -123,6 +127,7 @@ def send_end_of_run_summary_alert(error_summary):
     Args:
         error_summary: dict with keys:
             - total_errors: int (total error count)
+            - cloudflare_blocks: list of failed keywords
             - merge_failures: list of (project_id, error_msg)
             - phases: dict of {phase_name: error_count}
     
@@ -134,26 +139,34 @@ def send_end_of_run_summary_alert(error_summary):
         return False
     
     total = error_summary.get("total_errors", 0)
+    cloudflare_blocks = error_summary.get("cloudflare_blocks", [])
     merge_failures = error_summary.get("merge_failures", [])
     phases = error_summary.get("phases", {})
     
-    message = f"End-of-run error summary: **{total} total errors**\n\n"
+    message = f"⚠️ KICKSTARTER MONITOR - ERRORS DETECTED\n\n**{total} total errors**\n\n"
     
-    # Add phase breakdowns
-    if phases:
-        message += "**Errors by Phase:**\n"
-        for phase, count in phases.items():
-            message += f"- {phase}: {count} errors\n"
+    # Add Cloudflare blocks first (usually most common)
+    if cloudflare_blocks:
+        message += f"**Cloudflare Blocks ({len(cloudflare_blocks)}):**\n"
+        for keyword in cloudflare_blocks:
+            message += f"- {keyword}\n"
         message += "\n"
     
-    # Add merge failures (most common)
+    # Add merge failures
     if merge_failures:
         message += f"**GraphQL Merge Failures ({len(merge_failures)}):**\n"
         for project_id, error_msg in merge_failures[:10]:  # Show first 10
-            message += f"- Project {project_id}: {error_msg[:80]}...\n"
+            message += f"- Project {project_id}: {error_msg[:60]}...\n"
         
         if len(merge_failures) > 10:
             message += f"- ... and {len(merge_failures) - 10} more\n"
+        message += "\n"
+    
+    # Add success rate summary
+    if phases:
+        message += "**Error Summary by Phase:**\n"
+        for phase, count in phases.items():
+            message += f"- {phase}: {count} error(s)\n"
     
     return send_clickup_alert(
         alert_type="end_of_run_summary",

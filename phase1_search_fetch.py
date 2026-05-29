@@ -13,11 +13,9 @@ from config import (
     logger, KEYWORDS, DAYS_BACK, MAX_PAGES, REQUEST_DELAY,
     BASE_URL, GRAPHQL_URL
 )
-from alerts import send_cloudflare_alert
 
 
-# Module-level flag to send only one Cloudflare alert per run
-cloudflare_alert_sent = False
+# Note: Cloudflare alerts are collected and sent once at end of run, not during
 
 # Module-level variable to store warmed Kickstarter session for reuse across phases
 _warmed_kickstarter_session = None
@@ -311,6 +309,7 @@ def search_phase():
     # curl_cffi will automatically manage cookies from Set-Cookie headers
     session = Session(impersonate="chrome", timeout=30)
     all_projects = []
+    failed_keywords = []  # Track keywords that failed due to Cloudflare blocks
     seen_ids = set()
     
     logger.debug(f"[SESSION_DEBUG] Session created with impersonate='chrome'")
@@ -363,10 +362,8 @@ def search_phase():
                             )
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
                             
-                            # Send ClickUp alert (only once per run)
-                            if not cloudflare_alert_sent:
-                                send_cloudflare_alert(keyword, page, max_cloudflare_retries)
-                                cloudflare_alert_sent = True
+                            # Track failed keyword for end-of-run summary (not immediate alert)
+                            failed_keywords.append(keyword)
                             
                             stop_keyword = True
                             break
@@ -429,10 +426,8 @@ def search_phase():
                             )
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
                             
-                            # Send ClickUp alert (only once per run)
-                            if not cloudflare_alert_sent:
-                                send_cloudflare_alert(keyword, page, max_cloudflare_retries)
-                                cloudflare_alert_sent = True
+                            # Track failed keyword for end-of-run summary (not immediate alert)
+                            failed_keywords.append(keyword)
                             
                             stop_keyword = True
                             break
@@ -461,7 +456,13 @@ def search_phase():
         time.sleep(delay)
     
     logger.info(f"\n✅ Search complete: {len(all_projects)} unique projects discovered")
-    return all_projects
+    logger.info(f"⚠️  Failed keywords (Cloudflare blocks): {len(failed_keywords)}")
+    
+    # Return both projects and failed keywords for end-of-run summary
+    return {
+        "projects": all_projects,
+        "failed_keywords": failed_keywords
+    }
 
 
 # ==================== PHASE 1B: FETCH GRAPHQL ====================

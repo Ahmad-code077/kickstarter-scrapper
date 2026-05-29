@@ -1,7 +1,5 @@
 # main.py - Complete Kickstarter Monitor (Phases 1-4)
 # Entry point: orchestrates Search → Fetch → Merge → Clean → ClickUp → LLM → Supabase
-
-import json
 import os
 from datetime import datetime, timezone
 
@@ -100,16 +98,30 @@ def main():
     # Track all errors throughout run for end-of-run summary alert
     run_errors = {
         "total_errors": 0,
+        "cloudflare_blocks": [],
         "merge_failures": [],
         "phases": {}
     }
     
     try:
         # Phase 1a: Search
-        discovered = search_phase()
+        search_result = search_phase()
+        
+        # Unpack search result (now returns dict with projects and failed_keywords)
+        discovered = search_result.get("projects", [])
+        failed_keywords = search_result.get("failed_keywords", [])
+        
+        # Track Cloudflare failures
+        if failed_keywords:
+            run_errors["cloudflare_blocks"] = failed_keywords
+            run_errors["total_errors"] += len(failed_keywords)
+            run_errors["phases"]["Phase 1 (Cloudflare Blocks)"] = len(failed_keywords)
         
         if not discovered:
             logger.error("❌ No projects discovered, stopping")
+            # Send error summary before returning
+            if run_errors["total_errors"] > 0:
+                send_end_of_run_summary_alert(run_errors)
             return
         
         # Phase 1b & 1c: Fetch, Merge, Clean
