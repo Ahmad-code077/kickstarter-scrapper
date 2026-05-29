@@ -278,26 +278,31 @@ def search_phase():
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
         "referer": "https://www.kickstarter.com/",
+        "origin": "https://www.kickstarter.com",
     }
     
     # API/AJAX headers: for keyword discovery search requests
     api_headers = {
         "accept": "application/json, text/javascript, */*; q=0.01",
         "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-        "x-requested-with": "XMLHttpRequest",
+        "origin": "https://www.kickstarter.com",
         "referer": "https://www.kickstarter.com/discover/advanced",
+        "x-requested-with": "XMLHttpRequest",
     }
     
-    # Create session without global headers, let curl_cffi impersonate chrome
-    # Headers will be passed per-request for flexibility
+    # Create session with impersonate enabled for browser fingerprinting
+    # curl_cffi will automatically manage cookies from Set-Cookie headers
     session = Session(impersonate="chrome", timeout=30)
     all_projects = []
     seen_ids = set()
+    
+    logger.debug(f"[SESSION_DEBUG] Session created with impersonate='chrome'")
     
     # ==================== WARM UP SESSION ====================
     # Establish Cloudflare cookies before first keyword request
     warm_up_session(session, document_headers)
     logger.info("-" * 80)
+    logger.debug(f"[SESSION_DEBUG] Session cookies after warmup: {len(session.cookies)} cookies collected")
     
     # Store warmed session for reuse by GraphQL fetching
     _warmed_kickstarter_session = session
@@ -326,6 +331,7 @@ def search_phase():
                     response = fetch_with_network_retry(session, url, headers=api_headers, max_retries=3, backoff_factor=2)
                     
                     logger.info(f"   Page {page}/{MAX_PAGES} - Status: {response.status_code}")
+                    logger.debug(f"[DEBUG] Response preview: {response.text[:200]}...")
                     
                     # Check for Cloudflare block
                     if is_cloudflare_blocked(response.text, response.status_code):
@@ -523,18 +529,23 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
                 "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
                 "content-type": "application/json",
                 "origin": "https://www.kickstarter.com",
+                "referer": project_url,
                 "sec-fetch-dest": "empty",
                 "sec-fetch-mode": "cors",
                 "sec-fetch-site": "same-origin",
                 "x-csrf-token": csrf_token,  # Fresh CSRF from HTML
                 # NO "cookie" header - curl_cffi handles automatically!
             }
+            logger.debug(f"[GRAPHQL_HEADERS] CSRF token: {csrf_token[:20]}...")
+            logger.debug(f"[GRAPHQL_HEADERS] Session has {len(session.cookies)} cookies")
             
             # Step 3: Fetch GraphQL
             logger.debug(f"[GRAPHQL] Attempt {cloudflare_retry_count + 1}/{max_cloudflare_retries + 1}: {slug}")
             response = session.post(GRAPHQL_URL, json=payload, headers=graphql_headers, allow_redirects=True, timeout=30)
             
-            logger.debug(f"[GRAPHQL_RESPONSE] Status: {response.status_code}, Body (first 100 chars): {response.text[:100]}")
+            logger.debug(f"[GRAPHQL_RESPONSE] Status: {response.status_code}")
+            logger.debug(f"[GRAPHQL_RESPONSE] Body preview (first 100 chars): {response.text[:100]}")
+            logger.debug(f"[GRAPHQL_RESPONSE] Session now has {len(session.cookies)} cookies")
             
             # Check for Cloudflare block (403 or specific markers)
             if is_cloudflare_blocked(response.text, response.status_code):
