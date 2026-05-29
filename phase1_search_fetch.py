@@ -127,9 +127,14 @@ def fetch_with_network_retry(session, url, headers=None, max_retries=3, backoff_
             logger.debug(f"[NETWORK_FETCH] Attempt {attempt + 1}/{max_retries}: {url}")
             response = session.get(url, headers=headers, allow_redirects=True, timeout=30)
             logger.debug(f"[NETWORK_RESPONSE] Status: {response.status_code}")
+            
+            if response.status_code >= 400:
+                logger.error(f"[NETWORK_ERROR] HTTP {response.status_code}: {url}")
+                logger.error(f"[NETWORK_ERROR] Response preview: {response.text[:500]}")
+            
             return response
         except Exception as e:
-            logger.debug(f"[NETWORK_ERROR] Attempt {attempt + 1} failed: {e}")
+            logger.error(f"[NETWORK_EXCEPTION] Attempt {attempt + 1} failed: {e}")
             if attempt < max_retries - 1:
                 wait_time = backoff_factor ** attempt
                 logger.debug(f"[NETWORK_RETRY] Waiting {wait_time}s before retry...")
@@ -171,9 +176,13 @@ def warm_up_session(session, document_headers):
         if response.status_code == 200:
             logger.info("  ✅ Homepage loaded")
         else:
-            logger.warning(f"  ⚠️  Homepage returned status {response.status_code}")
+            logger.error(f"  ❌ Homepage returned status {response.status_code}")
+            logger.error(f"[WARMUP_ERROR] Response text (first 500 chars): {response.text[:500]}")
+            logger.error(f"[WARMUP_ERROR] Response headers: {dict(response.headers)}")
     except Exception as e:
-        logger.warning(f"  ⚠️  Homepage failed: {e}")
+        logger.error(f"  ❌ Homepage failed: {e}")
+        import traceback
+        logger.error(f"[WARMUP_EXCEPTION] {traceback.format_exc()}")
     
     # Step 2: Wait 3-6 seconds
     delay1 = uniform(3, 6)
@@ -189,9 +198,13 @@ def warm_up_session(session, document_headers):
         if response.status_code == 200:
             logger.info("  ✅ Discovery page loaded")
         else:
-            logger.warning(f"  ⚠️  Discovery page returned status {response.status_code}")
+            logger.error(f"  ❌ Discovery page returned status {response.status_code}")
+            logger.error(f"[WARMUP_ERROR] Response text (first 500 chars): {response.text[:500]}")
+            logger.error(f"[WARMUP_ERROR] Response headers: {dict(response.headers)}")
     except Exception as e:
-        logger.warning(f"  ⚠️  Discovery page failed: {e}")
+        logger.error(f"  ❌ Discovery page failed: {e}")
+        import traceback
+        logger.error(f"[WARMUP_EXCEPTION] {traceback.format_exc()}")
     
     # Step 4: Wait 5-10 seconds before keyword requests
     delay2 = uniform(5, 10)
@@ -331,10 +344,12 @@ def search_phase():
                     response = fetch_with_network_retry(session, url, headers=api_headers, max_retries=3, backoff_factor=2)
                     
                     logger.info(f"   Page {page}/{MAX_PAGES} - Status: {response.status_code}")
-                    logger.debug(f"[DEBUG] Response preview: {response.text[:200]}...")
                     
                     # Check for Cloudflare block
                     if is_cloudflare_blocked(response.text, response.status_code):
+                        logger.error(f"[CLOUDFLARE_BLOCK] Status {response.status_code} detected")
+                        logger.error(f"[CLOUDFLARE_BLOCK] Response text (first 500 chars): {response.text[:500]}")
+                        logger.error(f"[CLOUDFLARE_BLOCK] Response headers: {dict(response.headers)}")
                         cloudflare_retry_count += 1
                         
                         if cloudflare_retry_count > max_cloudflare_retries:
@@ -546,6 +561,11 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
             logger.debug(f"[GRAPHQL_RESPONSE] Status: {response.status_code}")
             logger.debug(f"[GRAPHQL_RESPONSE] Body preview (first 100 chars): {response.text[:100]}")
             logger.debug(f"[GRAPHQL_RESPONSE] Session now has {len(session.cookies)} cookies")
+            
+            if response.status_code >= 400:
+                logger.error(f"[GRAPHQL_ERROR] HTTP {response.status_code}: {slug}")
+                logger.error(f"[GRAPHQL_ERROR] Response text (first 500 chars): {response.text[:500]}")
+                logger.error(f"[GRAPHQL_ERROR] Response headers: {dict(response.headers)}")
             
             # Check for Cloudflare block (403 or specific markers)
             if is_cloudflare_blocked(response.text, response.status_code):
