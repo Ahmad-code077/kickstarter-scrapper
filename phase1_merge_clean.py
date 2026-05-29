@@ -56,6 +56,14 @@ def clean_story_field(story_html):
 
 def merge_and_flatten(discovery, graphql_data):
     """Merge discovery + GraphQL, flatten all nested structures"""
+    if graphql_data is None:
+        logger.error(f"[MERGE_ERROR] graphql_data is None for {discovery.get('project_name')}")
+        return None
+    
+    if not isinstance(graphql_data, dict):
+        logger.error(f"[MERGE_ERROR] graphql_data is not dict, got {type(graphql_data)}: {graphql_data}")
+        return None
+    
     project = graphql_data.get("data", {}).get("project", {})
     
     if not project:
@@ -130,6 +138,8 @@ def phase_1_search_fetch_merge_clean(discovered_projects, session=None):
         try:
             graphql_response = fetch_graphql_with_retry(slug, session=session)
             
+            logger.debug(f"[MERGE_DEBUG] graphql_response type: {type(graphql_response)}, value: {graphql_response}")
+            
             if graphql_response:
                 merged = merge_and_flatten(project, graphql_response)
                 if merged:
@@ -139,11 +149,13 @@ def phase_1_search_fetch_merge_clean(discovered_projects, session=None):
                     logger.warning(f"    ⚠️  Merge failed")
                     failed.append(project_id)
             else:
-                logger.warning(f"    ⚠️  GraphQL fetch failed")
+                logger.warning(f"    ⚠️  GraphQL fetch failed (returned None)")
                 failed.append(project_id)
         
         except Exception as e:
             logger.error(f"    ❌ Error: {e}")
+            import traceback
+            logger.error(f"[MERGE_EXCEPTION] Traceback: {traceback.format_exc()}")
             failed.append(project_id)
         
         time.sleep(1)

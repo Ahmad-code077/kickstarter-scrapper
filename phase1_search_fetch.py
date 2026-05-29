@@ -102,6 +102,10 @@ def extract_csrf_from_html(html_content):
     match = re.search(r'<meta name=["\']csrf-token["\'] content=["\']([^"\']+)["\']', html_content)
     if match:
         token = match.group(1)
+        if not token or token.strip() == "":
+            logger.warning(f"[CSRF_EXTRACT] Matched meta tag but token is EMPTY")
+            logger.debug(f"[CSRF_EXTRACT] HTML snippet around csrf-token: {html_content[max(0, html_content.find('csrf-token')-100):html_content.find('csrf-token')+200]}")
+            return None
         logger.debug(f"[CSRF_EXTRACT] Found CSRF token: {token[:20]}...")
         return token
     
@@ -590,6 +594,7 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
                     logger.error(f"[GRAPHQL_ERROR] GraphQL errors in response: {data['errors']}")
                     return None
                 logger.debug(f"[GRAPHQL_SUCCESS] Fetched data for {slug}")
+                logger.debug(f"[GRAPHQL_SUCCESS] Returning data type: {type(data)}, keys: {list(data.keys())}")
                 return data
             else:
                 logger.warning(f"[GRAPHQL_FAILED] Status={response.status_code}, Body={response.text[:200]}")
