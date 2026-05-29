@@ -20,6 +20,28 @@ from config import (
 # Module-level variable to store warmed Kickstarter session for reuse across phases
 _warmed_kickstarter_session = None
 
+# Session poisoning tracking: tracks consecutive Cloudflare failures
+consecutive_cloudflare_failures = 0
+
+
+# ==================== SESSION REFRESH FUNCTIONS ====================
+
+def create_and_warmup_session(document_headers):
+    """Create a new session and perform full warmup sequence
+    
+    Returns:
+        Session: Warmed curl_cffi session with Cloudflare cookies
+    """
+    logger.info("\n[SESSION_REFRESH] Creating new session with fresh cookies...")
+    session = Session(impersonate="chrome", timeout=30)
+    logger.debug(f"[SESSION_REFRESH] New session created")
+    
+    # Perform complete warmup on new session
+    warm_up_session(session, document_headers)
+    logger.info(f"[SESSION_REFRESH] New session warmup complete: {len(session.cookies)} cookies")
+    
+    return session
+
 
 # ==================== HELPER FUNCTIONS ====================
 
@@ -282,8 +304,8 @@ def extract_discovery_project(project):
 
 
 def search_phase():
-    """Phase 1a: Search for projects across all keywords with Cloudflare handling"""
-    global cloudflare_alert_sent, _warmed_kickstarter_session
+    """Phase 1a: Search for projects across all keywords with session refresh on Cloudflare blocks"""
+    global consecutive_cloudflare_failures, _warmed_kickstarter_session
     
     logger.info("\n📍 PHASE 1a: SEARCH")
     logger.info("-" * 80)
@@ -306,19 +328,13 @@ def search_phase():
     }
     
     # Create session with impersonate enabled for browser fingerprinting
-    # curl_cffi will automatically manage cookies from Set-Cookie headers
-    session = Session(impersonate="chrome", timeout=30)
+    session = create_and_warmup_session(document_headers)
     all_projects = []
-    failed_keywords = []  # Track keywords that failed due to Cloudflare blocks
+    failed_keywords = []
     seen_ids = set()
+    consecutive_cloudflare_failures = 0  # Track consecutive failures
     
-    logger.debug(f"[SESSION_DEBUG] Session created with impersonate='chrome'")
-    
-    # ==================== WARM UP SESSION ====================
-    # Establish Cloudflare cookies before first keyword request
-    warm_up_session(session, document_headers)
-    logger.info("-" * 80)
-    logger.debug(f"[SESSION_DEBUG] Session cookies after warmup: {len(session.cookies)} cookies collected")
+    logger.debug(f"[SESSION_DEBUG] Session created with {len(session.cookies)} cookies")
     
     # Store warmed session for reuse by GraphQL fetching
     _warmed_kickstarter_session = session
@@ -327,57 +343,85 @@ def search_phase():
     utc_now = datetime.now(timezone.utc)
     from_date = utc_now - timedelta(days=DAYS_BACK)
     
-    for keyword in KEYWORDS:
-        logger.info(f"\n🔍 Keyword: '{keyword}'")
+    for idx, keyword in enumerate(KEYWORDS):
+        logger.info(f"\n🔍 [{idx + 1}/{len(KEYWORDS)}] Keyword: '{keyword}'")
         stop_keyword = False
+        keyword_had_cloudflare_failure = False
         
         for page in range(1, MAX_PAGES + 1):
             if stop_keyword:
                 break
             
+            # Add mandatory 3-7 second delay BEFORE page 2 (prevents initial 403)
+            if page == 2:
+                pre_page2_delay = get_randomized_delay(3, max_jitter=4)
+                logger.info(f"   ⏳ Pre-Page 2 delay: Waiting {pre_page2_delay:.1f}s...")
+                time.sleep(pre_page2_delay)
+            
             url = build_discovery_url(keyword, page)
             cloudflare_retry_count = 0
             max_cloudflare_retries = 3
+            session_was_refreshed = False
             
-            # ==================== CLOUDFLARE RETRY LOOP ====================
+            # ==================== CLOUDFLARE RETRY LOOP WITH SESSION REFRESH ====================
             while cloudflare_retry_count <= max_cloudflare_retries:
                 try:
-                    # Fetch with network retry (separate from Cloudflare retry)
-                    # Pass API headers for keyword search requests
                     response = fetch_with_network_retry(session, url, headers=api_headers, max_retries=3, backoff_factor=2)
-                    
                     logger.info(f"   Page {page}/{MAX_PAGES} - Status: {response.status_code}")
                     
                     # Check for Cloudflare block
                     if is_cloudflare_blocked(response.text, response.status_code):
-                        logger.error(f"[CLOUDFLARE_BLOCK] Status {response.status_code} detected")
-                        logger.error(f"[CLOUDFLARE_BLOCK] Response text (first 500 chars): {response.text[:500]}")
-                        logger.error(f"[CLOUDFLARE_BLOCK] Response headers: {dict(response.headers)}")
+                        logger.error(f"[CLOUDFLARE_BLOCK] Status {response.status_code} detected - session poisoned")
                         cloudflare_retry_count += 1
+                        keyword_had_cloudflare_failure = True
+                        consecutive_cloudflare_failures += 1
                         
                         if cloudflare_retry_count > max_cloudflare_retries:
-                            # Max Cloudflare retries exceeded for this keyword
-                            logger.error(
-                                f"   ❌ Cloudflare block: Max {max_cloudflare_retries} retries exceeded for '{keyword}'"
-                            )
+                            # Max retries exceeded - skip this keyword
+                            logger.error(f"   ❌ Max {max_cloudflare_retries} retries exceeded for '{keyword}'")
                             logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
-                            
-                            # Track failed keyword for end-of-run summary (not immediate alert)
                             failed_keywords.append(keyword)
+                            
+                            # Force session refresh before next keyword if 2 consecutive failures
+                            if consecutive_cloudflare_failures >= 2:
+                                logger.warning(f"[SESSION_REFRESH] 2 consecutive keyword failures detected")
+                                logger.warning(f"[SESSION_REFRESH] Discarding poisoned session, creating new one...")
+                                session = create_and_warmup_session(document_headers)
+                                _warmed_kickstarter_session = session
+                                consecutive_cloudflare_failures = 0
+                                logger.info(f"[SESSION_REFRESH] New session ready with {len(session.cookies)} cookies")
                             
                             stop_keyword = True
                             break
                         
-                        # Calculate exponential backoff with jitter
-                        wait_time = get_exponential_backoff_with_jitter(cloudflare_retry_count - 1)
-                        logger.warning(
-                            f"   ⚠️  Cloudflare challenge detected (attempt {cloudflare_retry_count}/{max_cloudflare_retries})"
-                        )
-                        logger.info(f"   💤 Cooling down for {wait_time:.1f}s before retry...")
-                        time.sleep(wait_time)
-                        
-                        # Retry same page
-                        continue
+                        # Session is poisoned - refresh immediately on first 403
+                        if not session_was_refreshed:
+                            logger.warning(f"[SESSION_REFRESH] Poisoned session detected on attempt {cloudflare_retry_count}")
+                            logger.warning(f"[SESSION_REFRESH] Discarding current session and creating new one...")
+                            
+                            # Long cooldown: 30-60 seconds before retry with new session
+                            cooldown = get_randomized_delay(30, max_jitter=30)
+                            logger.info(f"[SESSION_REFRESH] Cooldown: {cooldown:.1f}s before new session retry...")
+                            time.sleep(cooldown)
+                            
+                            # Create new session with fresh cookies
+                            session = create_and_warmup_session(document_headers)
+                            session_was_refreshed = True
+                            _warmed_kickstarter_session = session
+                            logger.info(f"[SESSION_REFRESH] New session ready with {len(session.cookies)} cookies")
+                            
+                            # Retry same page with new session
+                            continue
+                        else:
+                            # Already refreshed once, still got 403 - skip this keyword
+                            logger.error(f"   ❌ Still blocked after session refresh, skipping keyword")
+                            failed_keywords.append(keyword)
+                            stop_keyword = True
+                            break
+                    
+                    # Reset consecutive failures on successful response
+                    if response.status_code == 200:
+                        consecutive_cloudflare_failures = 0
                     
                     # Success: Parse JSON
                     try:
@@ -401,7 +445,7 @@ def search_phase():
                             launched_dt = ts_to_datetime(launched_at)
                             
                             if launched_dt < from_date:
-                                logger.info(f"   ⏸️  Project older than {DAYS_BACK} days ({launched_dt.date()}), stopping page iteration")
+                                logger.info(f"   ⏸️  Project older than {DAYS_BACK} days, stopping page iteration")
                                 stop_keyword = True
                                 break
                             
@@ -416,41 +460,58 @@ def search_phase():
                     except json.JSONDecodeError as e:
                         # Could be HTML error page (Cloudflare block before JSON parsing)
                         logger.error(f"   ❌ JSON parse failed: {e}")
-                        logger.warning(f"   ⚠️  Possible Cloudflare block (no valid JSON)")
+                        logger.warning(f"   ⚠️  Possible Cloudflare block")
                         
                         cloudflare_retry_count += 1
+                        keyword_had_cloudflare_failure = True
+                        consecutive_cloudflare_failures += 1
                         
                         if cloudflare_retry_count > max_cloudflare_retries:
-                            logger.error(
-                                f"   ❌ Cloudflare block: Max {max_cloudflare_retries} retries exceeded for '{keyword}'"
-                            )
-                            logger.warning(f"   ⏭️  Skipping keyword: '{keyword}'")
-                            
-                            # Track failed keyword for end-of-run summary (not immediate alert)
+                            logger.error(f"   ❌ Max retries exceeded for '{keyword}'")
                             failed_keywords.append(keyword)
+                            
+                            # Force session refresh if 2 consecutive failures
+                            if consecutive_cloudflare_failures >= 2:
+                                logger.warning(f"[SESSION_REFRESH] 2 consecutive keyword failures - refreshing session")
+                                session = create_and_warmup_session(document_headers)
+                                _warmed_kickstarter_session = session
+                                consecutive_cloudflare_failures = 0
                             
                             stop_keyword = True
                             break
                         
-                        wait_time = get_exponential_backoff_with_jitter(cloudflare_retry_count - 1)
-                        logger.info(f"   💤 Cooling down for {wait_time:.1f}s before retry...")
-                        time.sleep(wait_time)
-                        continue
+                        # Session poisoned - refresh
+                        if not session_was_refreshed:
+                            logger.warning(f"[SESSION_REFRESH] Refreshing poisoned session after JSON parse error")
+                            cooldown = get_randomized_delay(30, max_jitter=30)
+                            logger.info(f"[SESSION_REFRESH] Cooldown: {cooldown:.1f}s...")
+                            time.sleep(cooldown)
+                            
+                            session = create_and_warmup_session(document_headers)
+                            session_was_refreshed = True
+                            _warmed_kickstarter_session = session
+                            continue
+                        else:
+                            failed_keywords.append(keyword)
+                            stop_keyword = True
+                            break
                 
                 except Exception as e:
-                    # Network error already retried by fetch_with_network_retry
                     logger.error(f"   ❌ Request failed: {e}")
                     time.sleep(3)
                     break
+            
+            # Add inter-page delay (8-12 seconds) BEFORE requesting next page
+            if not stop_keyword and page < MAX_PAGES:
+                inter_page_delay = get_randomized_delay(8, max_jitter=4)
+                logger.info(f"   ⏳ Inter-page delay: Waiting {inter_page_delay:.1f}s before page {page + 1}...")
+                time.sleep(inter_page_delay)
         
-        # Add inter-page delay (5-7 seconds) ONLY if we're continuing to next page
-        # Don't delay if we stopped due to old projects (stop_keyword=True)
-        if not stop_keyword and page < MAX_PAGES:
-            inter_page_delay = get_randomized_delay(5, max_jitter=2)
-            logger.debug(f"[INTER_PAGE_DELAY] Waiting {inter_page_delay:.2f}s before page {page + 1}...")
-            time.sleep(inter_page_delay)
+        # Reset consecutive failures if this keyword succeeded
+        if not keyword_had_cloudflare_failure:
+            consecutive_cloudflare_failures = 0
         
-        # Keyword complete: Apply inter-keyword delay before next keyword
+        # Inter-keyword delay (5-11 seconds)
         delay = get_randomized_delay(REQUEST_DELAY, max_jitter=6)
         logger.debug(f"[KEYWORD_DELAY] Waiting {delay:.2f}s before next keyword...")
         time.sleep(delay)
@@ -458,7 +519,6 @@ def search_phase():
     logger.info(f"\n✅ Search complete: {len(all_projects)} unique projects discovered")
     logger.info(f"⚠️  Failed keywords (Cloudflare blocks): {len(failed_keywords)}")
     
-    # Return both projects and failed keywords for end-of-run summary
     return {
         "projects": all_projects,
         "failed_keywords": failed_keywords
