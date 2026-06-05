@@ -5,7 +5,7 @@ import shutil
 from datetime import datetime, timezone
 
 # Import from config (sets up logger and loads environment)
-from config import logger
+from config import logger, supabase_client
 
 # Import phase functions
 import phase1_search_fetch
@@ -23,60 +23,118 @@ from alerts import send_pipeline_crash_alert, send_end_of_run_summary_alert
 # SCHEDULER FUNCTIONS
 # =========================
 
-def check_scheduler(last_run_file="last_run.txt"):
-    """Check if enough time has passed since last successful run
+def check_scheduler():
+    """Check if enough time has passed since last successful run using Supabase
     
-    Args:
-        last_run_file: Path to file storing timestamp of last successful run
+    Fetches from new_drops_pipeline_control table:
+    - last_cycle_completed_at: UTC timestamp of last successful run
+    - python_ready: boolean indicating if data is already prepared
     
     Returns:
-        bool: True if should proceed with scraping, False if should skip
+        bool: True if should proceed with scraping (14+ days AND python_ready=false)
     """
-    # Check if last_run.txt exists
-    if not os.path.exists(last_run_file):
-        logger.info("[SCHEDULER] No previous run found, proceeding with scraping")
+    if not supabase_client:
+        logger.warning("[SCHEDULER] Supabase not configured, proceeding with scraping")
         return True
     
-    # Read timestamp from file
     try:
-        with open(last_run_file, 'r') as f:
-            last_run_timestamp_str = f.read().strip()
+        # Fetch pipeline control row
+        response = supabase_client.table("new_drops_pipeline_control").select("last_cycle_completed_at, python_ready").eq("id", "new_drops").execute()
         
-        last_run_dt = datetime.fromisoformat(last_run_timestamp_str)
-        now = datetime.now(timezone.utc)
+        if not response.data:
+            logger.info("[SCHEDULER] No previous cycle found in Supabase, proceeding with scraping")
+            return True
         
-        # Calculate days since last run
-        days_since_last_run = (now - last_run_dt.replace(tzinfo=timezone.utc)).days
+        control_row = response.data[0]
+        last_cycle_completed_at = control_row.get("last_cycle_completed_at")
+        python_ready = control_row.get("python_ready", False)
         
-        logger.info(f"[SCHEDULER] Last run: {last_run_dt}")
-        logger.info(f"[SCHEDULER] Days since last run: {days_since_last_run}")
+        logger.info("\n" + "="*80)
+        logger.info("[SCHEDULER] 📊 DETAILED DATE CALCULATION REPORT")
+        logger.info("="*80)
         
-        if days_since_last_run >= 14:
-            logger.info(f"[SCHEDULER] {days_since_last_run} days passed (>= 14), proceeding with scraping")
+        # ========== SUPABASE DATA ==========
+        logger.info("\n[SCHEDULER] 🗄️  SUPABASE DATA:")
+        logger.info(f"  • last_cycle_completed_at (raw): {last_cycle_completed_at}")
+        logger.info(f"  • python_ready: {python_ready}")
+        
+        # Parse timestamp (already UTC)
+        last_dt = datetime.fromisoformat(last_cycle_completed_at.replace("Z", "+00:00"))
+        now_utc = datetime.now(timezone.utc)
+        
+        logger.info("\n[SCHEDULER] 🔄 TIMESTAMP PARSING:")
+        logger.info(f"  • Parsed last_cycle_completed_at: {last_dt}")
+        logger.info(f"  • Current time (UTC): {now_utc}")
+        logger.info(f"  • Timezone info (last_dt): {last_dt.tzinfo}")
+        logger.info(f"  • Timezone info (now_utc): {now_utc.tzinfo}")
+        
+        # Extract calendar dates
+        last_date = last_dt.date()
+        now_date = now_utc.date()
+        
+        logger.info("\n[SCHEDULER] 📅 CALENDAR DATES (ignoring time):")
+        logger.info(f"  • Last cycle date: {last_date} ({last_date.strftime('%A, %B %d, %Y')})")
+        logger.info(f"  • Current date: {now_date} ({now_date.strftime('%A, %B %d, %Y')})")
+        
+        # Calculate days difference
+        days_delta = now_date - last_date
+        days_since = days_delta.days
+        
+        logger.info("\n[SCHEDULER] 🧮 DATE DIFFERENCE CALCULATION:")
+        logger.info(f"  • Days delta: {now_date} - {last_date}")
+        logger.info(f"  • Days since last cycle: {days_since}")
+        logger.info(f"  • Required days: 14")
+        logger.info(f"  • Condition (days_since >= 14): {days_since >= 14}")
+        
+        # ========== DECISION LOGIC ==========
+        logger.info("\n[SCHEDULER] ⚙️  DECISION LOGIC:")
+        logger.info(f"  • Requirement 1: days_since ({days_since}) >= 14? {days_since >= 14}")
+        logger.info(f"  • Requirement 2: python_ready ({python_ready}) == False? {not python_ready}")
+        logger.info(f"  • Both conditions met? {(days_since >= 14) and (not python_ready)}")
+        
+        # Run if: 14+ days passed AND data not yet prepared (python_ready=false)
+        if days_since >= 14 and not python_ready:
+            logger.info("\n[SCHEDULER] ✅ GO AHEAD WITH SCRAPING")
+            logger.info(f"  Reason: {days_since} days have passed (>= 14 required) AND data not yet prepared")
+            logger.info("="*80 + "\n")
             return True
         else:
-            logger.info(f"[SCHEDULER] Only {days_since_last_run} days passed (< 14), skipping this run")
+            logger.info("\n[SCHEDULER] ⏸️  SKIP THIS RUN")
+            if days_since < 14:
+                logger.info(f"  Reason: Only {days_since} days passed. Need 14 days. Wait {14 - days_since} more day(s)")
+            elif python_ready:
+                logger.info(f"  Reason: Data already prepared (python_ready=true). Waiting for next cycle")
+            logger.info("="*80 + "\n")
             return False
     
     except Exception as e:
-        logger.error(f"[SCHEDULER] Error reading {last_run_file}: {e}")
+        logger.error(f"[SCHEDULER] Error fetching from Supabase: {e}")
         logger.warning("[SCHEDULER] Proceeding with scraping due to read error")
         return True
 
 
-def update_last_run(last_run_file="last_run.txt"):
-    """Update last_run.txt with current timestamp after successful run
+def update_last_run():
+    """Update Supabase pipeline control after successful run
     
-    Args:
-        last_run_file: Path to file storing timestamp of last successful run
+    Sets:
+    - python_ready: true (data has been prepared)
+    - python_completed_at: current UTC timestamp
     """
+    if not supabase_client:
+        logger.warning("[SCHEDULER] Supabase not configured, cannot update run status")
+        return
+    
     try:
-        now = datetime.now(timezone.utc)
-        with open(last_run_file, 'w') as f:
-            f.write(now.isoformat())
-        logger.info(f"[SCHEDULER] Updated {last_run_file} with timestamp: {now.isoformat()}")
+        now_utc = datetime.now(timezone.utc)
+        
+        supabase_client.table("new_drops_pipeline_control").update({
+            "python_ready": True,
+            "python_completed_at": now_utc.isoformat()
+        }).eq("id", "new_drops").execute()
+        
+        logger.info(f"[SCHEDULER] Updated Supabase: python_ready=true, python_completed_at={now_utc.isoformat()}")
     except Exception as e:
-        logger.error(f"[SCHEDULER] Error writing {last_run_file}: {e}")
+        logger.error(f"[SCHEDULER] Error updating Supabase: {e}")
 
 
 # =========================
@@ -196,8 +254,8 @@ def main():
             send_end_of_run_summary_alert(run_errors)
         
         # ============ SCHEDULER UPDATE ============
-        # Only update last_run.txt after successful completion
-        logger.info("\n[SCHEDULER] Scraping completed successfully, updating last_run.txt...")
+        # Only update Supabase after successful completion
+        logger.info("\n[SCHEDULER] Scraping completed successfully, updating Supabase...")
         update_last_run()
     
     except Exception as e:
@@ -207,8 +265,8 @@ def main():
         # Also send error summary if we have partial errors
         if run_errors["total_errors"] > 0:
             send_end_of_run_summary_alert(run_errors)
-        # NOTE: Do NOT update last_run.txt on failure - script will retry on next scheduled run
-        logger.warning("[SCHEDULER] Scraping failed - NOT updating last_run.txt for retry on next run")
+        # NOTE: Do NOT update Supabase on failure - script will retry on next scheduled run
+        logger.warning("[SCHEDULER] Scraping failed - NOT updating Supabase for retry on next run")
         raise
 
 
