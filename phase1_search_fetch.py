@@ -1,7 +1,6 @@
 # phase1_search_fetch.py - Phase 1a (Search) and 1b (Fetch GraphQL)
 # Human-like request pacing with Cloudflare recovery strategy
 
-from curl_cffi.requests import Session
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlencode
 from random import uniform
@@ -13,6 +12,7 @@ from config import (
     logger, KEYWORDS, DAYS_BACK, MAX_PAGES, REQUEST_DELAY,
     BASE_URL, GRAPHQL_URL
 )
+from session_utils import create_session_with_proxy
 
 
 # Note: Cloudflare alerts are collected and sent once at end of run, not during
@@ -33,7 +33,7 @@ def create_and_warmup_session(document_headers):
         Session: Warmed curl_cffi session with Cloudflare cookies
     """
     logger.info("\n[SESSION_REFRESH] Creating new session with fresh cookies...")
-    session = Session(impersonate="chrome", timeout=30)
+    session = create_session_with_proxy(impersonate="chrome", timeout=30)
     logger.debug(f"[SESSION_REFRESH] New session created")
     
     # Perform complete warmup on new session
@@ -190,7 +190,37 @@ def warm_up_session(session, document_headers):
         document_headers: Headers for normal document requests (not API calls)
     """
     logger.info("🔥 Warming up session with multi-step browsing...")
-    
+
+    # Step 0: Prime the Cloudflare __cf_bm cookie via the JSON API (XHR) BEFORE any
+    # HTML page load. Through datacenter/proxy IPs a COLD html document request is
+    # challenged (403 "Just a moment") because no __cf_bm cookie exists yet. The
+    # JSON API endpoint is NOT challenged cold, so hitting it first plants __cf_bm
+    # and lets the subsequent HTML warmup + project pages through.
+    # (No-op on direct/residential IPs - it just returns 200 and sets the cookie.)
+    prime_api_headers = {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+        "origin": "https://www.kickstarter.com",
+        "referer": "https://www.kickstarter.com/discover/advanced",
+        "x-requested-with": "XMLHttpRequest",
+    }
+    prime_url = build_discovery_url(KEYWORDS[0], page=1)
+    try:
+        logger.debug(f"[WARMUP_STEP0] Priming Cloudflare cookie via API: {prime_url}")
+        prime_response = session.get(prime_url, headers=prime_api_headers, allow_redirects=True, timeout=30)
+        logger.debug(f"[WARMUP_STEP0] Status: {prime_response.status_code}, cookies: {len(session.cookies)}")
+        if prime_response.status_code == 200:
+            logger.info("  ✅ Cloudflare cookie primed via API")
+        else:
+            logger.warning(f"  ⚠️  Cookie prime returned status {prime_response.status_code}")
+    except Exception as e:
+        logger.error(f"  ❌ Cookie prime failed: {e}")
+
+    # Short delay before HTML navigation (human-like)
+    delay0 = uniform(2, 4)
+    logger.debug(f"[WARMUP_DELAY0] Waiting {delay0:.2f}s before homepage...")
+    time.sleep(delay0)
+
     # Step 1: Visit homepage with document headers
     homepage_url = "https://www.kickstarter.com/"
     try:
@@ -562,17 +592,21 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
     
     Args:
         slug: Project slug (creator_id/project_slug)
-        session: curl_cffi Session (REQUIRED - reuses warmed session from Phase 1a)
+        session: curl_cffi Session (reuses warmed session from Phase 1a).
+                 If None, a fresh proxied session is created so the request
+                 still goes through the proxy IP configured in .env.
         max_retries: Max Cloudflare retry attempts
         backoff_factor: Exponential backoff multiplier
-    
+
     Returns:
         dict: GraphQL response data or None if failed
     """
     if session is None:
-        logger.error("[GRAPHQL] ERROR: session is required (must pass warmed session from Phase 1a)")
-        return None
-    
+        # No warmed session supplied - create one routed through the proxy IP
+        # from .env so the single-product GraphQL fetch is never un-proxied.
+        logger.warning("[GRAPHQL] No session passed, creating new proxied session")
+        session = create_session_with_proxy(impersonate="chrome", timeout=30)
+
     logger.debug(f"[GRAPHQL] Using persistent session for {slug} (automatic cookie handling)")
     
     payload = {

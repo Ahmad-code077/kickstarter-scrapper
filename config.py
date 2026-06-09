@@ -121,6 +121,40 @@ GRAPHQL_URL = "https://www.kickstarter.com/graph"
 
 
 # =========================
+# ENVIRONMENT VARIABLES - PROXY (SECURE)
+# =========================
+
+def build_proxy_url():
+    """Build proxy URL from individual credentials in .env
+    
+    Format: http://user:password@ip:port
+    Returns: Full proxy URL or None if not configured
+    """
+    proxy_ip = get_env("PROXY_IP")
+    proxy_port = get_env("PROXY_PORT")
+    proxy_user = get_env("PROXY_USER")
+    proxy_pass = get_env("PROXY_PASS")
+    
+    # Check if proxy is configured (all 4 fields must be non-empty)
+    if not all([proxy_ip, proxy_port, proxy_user, proxy_pass]):
+        return None
+    
+    # Build URL: http://user:password@ip:port
+    proxy_url = f"http://{proxy_user}:{proxy_pass}@{proxy_ip}:{proxy_port}"
+    return proxy_url
+
+PROXY_URL = build_proxy_url()
+
+if PROXY_URL:
+    # Mask credentials in logs for security
+    proxy_display = f"http://***:***@{get_env('PROXY_IP')}:{get_env('PROXY_PORT')}"
+    logger.info(f"✅ Proxy configured: {proxy_display}")
+else:
+    logger.info("⚠️  No proxy configured (PROXY_IP, PROXY_PORT, PROXY_USER, PROXY_PASS not set)")
+    PROXY_URL = None
+
+
+# =========================
 # ENVIRONMENT VARIABLES - CLICKUP
 # =========================
 
