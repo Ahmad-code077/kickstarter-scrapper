@@ -39,6 +39,26 @@ def create_session_with_proxy(impersonate="chrome", timeout=30):
     return session
 
 
+def create_session(impersonate="chrome", timeout=30):
+    """Create a session, automatically choosing proxy vs no-proxy based on .env
+
+    If a proxy is configured in .env (PROXY_URL is set), the session routes all
+    requests through that proxy IP. Otherwise it falls back to a direct (no-proxy)
+    session. This is the single entry point the pipeline should use so the
+    proxy/no-proxy decision lives in exactly one place.
+
+    Args:
+        impersonate (str): Browser to impersonate. Default: "chrome"
+        timeout (int): Request timeout in seconds. Default: 30
+
+    Returns:
+        Session: Proxied session if PROXY_URL is set, else a direct session
+    """
+    if PROXY_URL:
+        return create_session_with_proxy(impersonate=impersonate, timeout=timeout)
+    return create_session_no_proxy(impersonate=impersonate, timeout=timeout)
+
+
 def create_session_no_proxy(impersonate="chrome", timeout=30):
     """Create a curl_cffi Session WITHOUT proxy (for debugging or optional use)
     

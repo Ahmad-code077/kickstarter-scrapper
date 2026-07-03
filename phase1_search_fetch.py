@@ -12,7 +12,7 @@ from config import (
     logger, KEYWORDS, DAYS_BACK, MAX_PAGES, REQUEST_DELAY,
     BASE_URL, GRAPHQL_URL
 )
-from session_utils import create_session_with_proxy
+from session_utils import create_session
 
 
 # Note: Cloudflare alerts are collected and sent once at end of run, not during
@@ -33,7 +33,8 @@ def create_and_warmup_session(document_headers):
         Session: Warmed curl_cffi session with Cloudflare cookies
     """
     logger.info("\n[SESSION_REFRESH] Creating new session with fresh cookies...")
-    session = create_session_with_proxy(impersonate="chrome", timeout=30)
+    # Uses the proxy IP from .env if configured, otherwise a direct connection
+    session = create_session(impersonate="chrome", timeout=30)
     logger.debug(f"[SESSION_REFRESH] New session created")
     
     # Perform complete warmup on new session
@@ -593,8 +594,8 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
     Args:
         slug: Project slug (creator_id/project_slug)
         session: curl_cffi Session (reuses warmed session from Phase 1a).
-                 If None, a fresh proxied session is created so the request
-                 still goes through the proxy IP configured in .env.
+                 If None, a fresh session is created - proxied if a proxy IP is
+                 configured in .env, otherwise a direct connection.
         max_retries: Max Cloudflare retry attempts
         backoff_factor: Exponential backoff multiplier
 
@@ -602,10 +603,10 @@ def fetch_graphql_with_retry(slug, session=None, max_retries=3, backoff_factor=2
         dict: GraphQL response data or None if failed
     """
     if session is None:
-        # No warmed session supplied - create one routed through the proxy IP
-        # from .env so the single-product GraphQL fetch is never un-proxied.
-        logger.warning("[GRAPHQL] No session passed, creating new proxied session")
-        session = create_session_with_proxy(impersonate="chrome", timeout=30)
+        # No warmed session supplied - create one using the proxy IP from .env
+        # if configured, otherwise a direct (no-proxy) session.
+        logger.warning("[GRAPHQL] No session passed, creating new session")
+        session = create_session(impersonate="chrome", timeout=30)
 
     logger.debug(f"[GRAPHQL] Using persistent session for {slug} (automatic cookie handling)")
     
