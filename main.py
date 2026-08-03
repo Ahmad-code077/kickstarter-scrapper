@@ -1,7 +1,8 @@
 # main.py - Complete Kickstarter Monitor (Phases 1-4)
-# Entry point: orchestrates Search → Fetch → Merge → Clean → ClickUp → LLM → Supabase
+# Entry point: orchestrates IP check → Search → Fetch → Merge → Clean → ClickUp → LLM → Supabase
 import os
 import shutil
+import sys
 from datetime import datetime, timezone
 
 # Import from config (sets up logger and loads environment)
@@ -14,6 +15,9 @@ from phase1_merge_clean import phase_1_search_fetch_merge_clean
 from phase2_clickup import fetch_brand_voice, fetch_extraction_sop
 from phase3_llm import phase_3_llm_scoring
 from phase4_supabase import upsert_to_supabase
+
+# Import one-time IP check
+from ip_check import check_ip
 
 # Import alerting
 from alerts import send_pipeline_crash_alert, send_end_of_run_summary_alert
@@ -168,7 +172,15 @@ def main():
         return
     
     logger.info("\n[SCHEDULER] Proceeding with scraping...\n")
-    
+
+    # ============ IP CHECK ============
+    # Check the IP once. If it does not work, stop here - nothing is processed and
+    # Supabase is not updated, so the next scheduled run retries.
+    if not check_ip():
+        logger.error("\n❌ IP check failed - stopping, nothing was processed")
+        send_pipeline_crash_alert("IP check failed - the proxy/IP is down or blocked. Run stopped before scraping.")
+        sys.exit(2)
+
     # Track all errors throughout run for end-of-run summary alert
     run_errors = {
         "total_errors": 0,
