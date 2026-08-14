@@ -174,11 +174,12 @@ def main():
     logger.info("\n[SCHEDULER] Proceeding with scraping...\n")
 
     # ============ IP CHECK ============
-    # Check the IP once. If it does not work, stop here - nothing is processed and
-    # Supabase is not updated, so the next scheduled run retries.
+    # Check the outbound IP 3 times (neutral IP services, never Kickstarter). If all
+    # 3 fail, stop here - nothing is processed and Supabase is not updated, so the
+    # next scheduled run retries.
     if not check_ip():
         logger.error("\n❌ IP check failed - stopping, nothing was processed")
-        send_pipeline_crash_alert("IP check failed - the proxy/IP is down or blocked. Run stopped before scraping.")
+        send_pipeline_crash_alert("IP check failed - all 3 attempts could not reach the internet through the proxy. Run stopped before scraping.")
         sys.exit(2)
 
     # Track all errors throughout run for end-of-run summary alert
